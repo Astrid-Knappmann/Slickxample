@@ -34,11 +34,6 @@ public class IceBall implements PlayerProjectile {
         this.particleEffects = particleEffects;
     }
 
-
-    
-    
-    
-
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         texture.draw(xPos, yPos);
@@ -48,17 +43,17 @@ public class IceBall implements PlayerProjectile {
     public void update(GameContainer container, StateBasedGame game, int delta) {
         yPos += speed * (float) Math.cos(angle) * delta;
         xPos += speed * (float) Math.sin(angle) * delta;
-        
+
 //        yPos -= 0.2f * delta;
         texture.rotate(1 * delta);
-        try {   
-            if(PlayerProjectileManager.iceParticleCreationCount > 15){
-            particleEffects.add(new IceParticle(xPos, yPos, new Image("res/wannabeIce.png"),  RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat()/2-0.25f));
-            MainMenu.count ++;
+        try {
+            if (PlayerProjectileManager.iceParticleCreationCount > 15) {
+                particleEffects.add(new IceParticle(xPos, yPos, new Image("res/wannabeIce.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
+                MainMenu.count++;
             }
         } catch (SlickException ex) {
         }
-        
+
     }
 
     @Override
