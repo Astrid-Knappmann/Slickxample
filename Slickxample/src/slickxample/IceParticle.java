@@ -15,10 +15,9 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class IceParticle extends PlayerProjectile {
 
-    private int lifeTime = 750;
     private float alpha = 0.5f;
     private float rotation;
-
+    
     public IceParticle(float xPos, float yPos, Image texture, int initRotation, float rotation) {
         super.xPos = xPos;
         super.yPos = yPos;
@@ -26,6 +25,7 @@ public class IceParticle extends PlayerProjectile {
         texture.setRotation(initRotation);
         this.rotation = rotation;
         texture.setAlpha(alpha);
+        super.lifeTime = 750;
     }
 
     @Override
@@ -43,8 +43,5 @@ public class IceParticle extends PlayerProjectile {
         }
     }
 
-    public int getLifeTime() {
-        return lifeTime;
-    }
 
 }

@@ -21,6 +21,9 @@ public abstract class PlayerProjectile {
     Image texture;
     float speed;
     float angle;
+    float lifeTime = 1;
+    
+    
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         texture.draw(xPos, yPos);
@@ -46,5 +49,15 @@ public abstract class PlayerProjectile {
     public float getYPos() {
         return yPos;
     }
+
+    public float getLifeTime() {
+        return lifeTime;
+    }
+
+    public void setLifeTime(float lifeTime) {
+        this.lifeTime = lifeTime;
+    }
+    
+    
 
 }

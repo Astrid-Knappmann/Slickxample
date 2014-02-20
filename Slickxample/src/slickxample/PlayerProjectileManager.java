@@ -23,14 +23,25 @@ public class PlayerProjectileManager {
     private final Image iceBall;
     private Iterator<PlayerProjectile> playeriterator;
     private Iterator<IceParticle> iceParticleiterator;
+    private final Image lavaSpray;
     public static int iceParticleCreationCount;
-    public static float ICEBALL_MIDDLE;
+    public static final int ICEBALL_ID = 0;
+    public static float ICEBALL_MIDDLEX;
+    public static float ICEBALL_MIDDLEY;
+    public static final float ICEBALL_RELOAD = 400;
+    public static final int LAVASPRAY_ID = 1;
+    public static final float LAVASPRAY_RELOAD = 7;
+    public static float LAVASPRAY_MIDDLEX;
+    public static float LAVASPRAY_MIDDLEY;
 
     public PlayerProjectileManager() throws SlickException {
         projectiles = new ArrayList<>();
         iceParticles = new ArrayList<>();
         iceBall = new Image("res/wannabeIce.png");
-        ICEBALL_MIDDLE = iceBall.getWidth()/2;
+        lavaSpray = new Image("res/LavaSpray.png");
+        ICEBALL_MIDDLEX = iceBall.getWidth() / 2;
+        LAVASPRAY_MIDDLEX = lavaSpray.getWidth() / 2;
+        ICEBALL_MIDDLEY = iceBall.getHeight() / 2;
     }
 
     public void SpawnProjectile(float xPos, float yPos, float angle, int id) {
@@ -38,8 +49,11 @@ public class PlayerProjectileManager {
             case 0:
                 projectiles.add(new IceBall(xPos, yPos, angle, iceBall, iceParticles));
                 break;
-
+            case 1:
+                projectiles.add(new LavaSpray(xPos + ICEBALL_MIDDLEX, yPos + ICEBALL_MIDDLEY, angle, lavaSpray));
+                break;
         }
+        MainMenu.count++;
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
@@ -62,8 +76,9 @@ public class PlayerProjectileManager {
         while (playeriterator.hasNext()) {
             PlayerProjectile p = playeriterator.next();
             p.update(container, game, delta);
-            if (p.getYPos() < -100 || p.getYPos() > container.getHeight() || p.getXPos() < -100 || p.getXPos() > container.getWidth()) {
+            if (p.getYPos() < -100 || p.getYPos() > container.getHeight() + 100 || p.getXPos() < -100 || p.getXPos() > container.getWidth() + 100 || p.getLifeTime() <= 0) {
                 playeriterator.remove();
+                MainMenu.count--;
             }
         }
 
