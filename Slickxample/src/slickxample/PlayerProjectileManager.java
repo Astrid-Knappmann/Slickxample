@@ -9,10 +9,8 @@ import java.util.Iterator;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import static slickxample.MainMenu.count;
 
 /**
  *
@@ -20,23 +18,19 @@ import static slickxample.MainMenu.count;
  */
 public class PlayerProjectileManager {
 
-    private ArrayList<PlayerProjectile> projectiles;
-    private ArrayList<IceParticle> iceParticles;
-    private Image iceBall;
+    private final ArrayList<PlayerProjectile> projectiles;
+    private final ArrayList<IceParticle> iceParticles;
+    private final Image iceBall;
     private Iterator<PlayerProjectile> playeriterator;
     private Iterator<IceParticle> iceParticleiterator;
     public static int iceParticleCreationCount;
-    private Input input;
-    private float mouseX = 1;
-    private float mouseY = 1;
-    private float oldMouseX = 0;
-    private float oldMouseY = 0;
-    private int test = 0;
+    public static float ICEBALL_MIDDLE;
 
     public PlayerProjectileManager() throws SlickException {
         projectiles = new ArrayList<>();
         iceParticles = new ArrayList<>();
         iceBall = new Image("res/wannabeIce.png");
+        ICEBALL_MIDDLE = iceBall.getWidth()/2;
     }
 
     public void SpawnProjectile(float xPos, float yPos, float angle, int id) {

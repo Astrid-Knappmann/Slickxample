@@ -23,6 +23,7 @@ public class Player {
     private PlayerProjectileManager projectiles;
     private Input input;
     private float reloadTime;
+    private float space = PlayerProjectileManager.ICEBALL_MIDDLE;
 
     public Player(float xPos, float yPos, Image texture, PlayerProjectileManager projectiles) {
         this.xPos = xPos;
@@ -52,15 +53,15 @@ public class Player {
         }
         if (input.isKeyDown(Input.KEY_SPACE)) {
             if (reloadTime <= 0) {
-                projectiles.SpawnProjectile(xPos, yPos, getAngle(), 0);
+                projectiles.SpawnProjectile(xPos, yPos, getAngle(space), 0);
                 reloadTime = 400;
             }
         }
     }
     
-    public float getAngle(){
-        float deltax =  input.getMouseX() - xPos;
-        float deltay = input.getMouseY() - yPos;
+    public float getAngle(float projectileid){
+        float deltax =  input.getMouseX() - projectileid - xPos;
+        float deltay = input.getMouseY() - projectileid - yPos;
         float angle = (float) Math.atan2(deltax, deltay);
         return angle;
     }

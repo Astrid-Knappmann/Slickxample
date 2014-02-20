@@ -17,34 +17,27 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author Patrick
  */
-public class IceBall implements PlayerProjectile {
+public class IceBall extends PlayerProjectile {
 
-    private float xPos;
-    private float yPos;
-    private Image texture;
-    private ArrayList<IceParticle> particleEffects;
-    private float speed = 0.2f;
-    private float angle;
+    private final ArrayList<IceParticle> particleEffects;
 
     public IceBall(float xPos, float yPos, float angle, Image texture, ArrayList<IceParticle> particleEffects) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.angle = angle;
-        this.texture = texture;
+        super.xPos = xPos;
+        super.yPos = yPos;
+        super.angle = angle;
+        super.texture = texture;
         this.particleEffects = particleEffects;
+        super.speed = 0.2f;
     }
 
-    @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) {
-        texture.draw(xPos, yPos);
-    }
+//    @Override
+//    public void render(GameContainer container, StateBasedGame game, Graphics g) {
+//        super.render(container, game, g);
+//    }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        yPos += speed * (float) Math.cos(angle) * delta;
-        xPos += speed * (float) Math.sin(angle) * delta;
-
-//        yPos -= 0.2f * delta;
+        super.update(container, game, delta);
         texture.rotate(1 * delta);
         try {
             if (PlayerProjectileManager.iceParticleCreationCount > 15) {
@@ -54,25 +47,5 @@ public class IceBall implements PlayerProjectile {
         } catch (SlickException ex) {
         }
 
-    }
-
-    @Override
-    public void setXPos(float xPos) {
-        this.xPos = xPos;
-    }
-
-    @Override
-    public float getXPos() {
-        return xPos;
-    }
-
-    @Override
-    public void setYPos(float YPos) {
-        this.yPos = yPos;
-    }
-
-    @Override
-    public float getYPos() {
-        return yPos;
     }
 }
