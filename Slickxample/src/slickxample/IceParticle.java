@@ -17,11 +17,9 @@ public class IceParticle extends PlayerProjectile {
 
     private float alpha = 0.5f;
     private float rotation;
-    
+
     public IceParticle(float xPos, float yPos, Image texture, int initRotation, float rotation) {
-        super.xPos = xPos;
-        super.yPos = yPos;
-        super.texture = texture;
+        super(xPos, yPos, 0, texture);
         texture.setRotation(initRotation);
         this.rotation = rotation;
         texture.setAlpha(alpha);
@@ -42,6 +40,5 @@ public class IceParticle extends PlayerProjectile {
             texture.setAlpha(alpha -= 0.001 * delta);
         }
     }
-
 
 }

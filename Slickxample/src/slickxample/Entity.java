@@ -9,28 +9,27 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
  *
  * @author PK
  */
-public abstract class PlayerProjectile {
+public abstract class Entity {
 
     float xPos;
     float yPos;
     Image texture;
-    float speed;
-    float angle;
-    float lifeTime = 1;
     Rectangle bounds;
-    float damage;
+    float life;
+    float speed;
+    Rectangle pathing;
+    float pathingX;
+    float pathingY;
 
-    public PlayerProjectile(float xPos, float yPos, float angle, Image texture) {
+    public Entity(float xPos, float yPos, Image texture) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.angle = angle;
         this.texture = texture;
         bounds = new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
     }
@@ -40,45 +39,36 @@ public abstract class PlayerProjectile {
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        yPos += speed * (float) Math.cos(angle) * delta;
-        xPos += speed * (float) Math.sin(angle) * delta;
         bounds.setLocation(xPos, yPos);
+        pathing.setLocation(xPos + pathingX, yPos + pathingY);
     }
 
-    public boolean checkCollision(Shape shape) {
-        return bounds.intersects(shape);
+    public float getLife() {
+        return life;
     }
 
-    public void collision(Entity e) {
-        if (lifeTime != 0) {
-            e.setLife(e.getLife() - damage);
-            lifeTime = 0;
-            System.out.println(e.getLife());
-        }
+    public void setLife(float life) {
+        this.life = life;
     }
 
-    public void setXPos(float xPos) {
-        this.xPos = xPos;
-    }
-
-    public float getXPos() {
+    public float getxPos() {
         return xPos;
     }
 
-    public void setYPos(float YPos) {
-        this.yPos = yPos;
+    public void setxPos(float xPos) {
+        this.xPos = xPos;
+        bounds.setX(xPos);
+        pathing.setX(xPos + pathingX);
     }
 
-    public float getYPos() {
+    public float getyPos() {
         return yPos;
     }
 
-    public float getLifeTime() {
-        return lifeTime;
-    }
-
-    public void setLifeTime(float lifeTime) {
-        this.lifeTime = lifeTime;
+    public void setyPos(float yPos) {
+        this.yPos = yPos;
+        bounds.setY(yPos);
+        pathing.setY(yPos + pathingY);
     }
 
     public Rectangle getBounds() {
@@ -88,5 +78,16 @@ public abstract class PlayerProjectile {
     public void setBounds(Rectangle bounds) {
         this.bounds = bounds;
     }
+
+    public Rectangle getPathing() {
+        return pathing;
+    }
+
+    public void setPathing(Rectangle pathing) {
+        this.pathing = pathing;
+    }
+    
+    
+
 
 }

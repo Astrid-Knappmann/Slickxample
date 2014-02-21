@@ -22,12 +22,10 @@ public class IceBall extends PlayerProjectile {
     private final ArrayList<IceParticle> particleEffects;
 
     public IceBall(float xPos, float yPos, float angle, Image texture, ArrayList<IceParticle> particleEffects) {
-        super.xPos = xPos;
-        super.yPos = yPos;
-        super.angle = angle;
-        super.texture = texture;
+        super(xPos, yPos, angle, texture);
         this.particleEffects = particleEffects;
         super.speed = 0.2f;
+        super.damage = 50;
     }
 
 //    @Override

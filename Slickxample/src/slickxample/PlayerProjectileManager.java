@@ -20,9 +20,11 @@ public class PlayerProjectileManager {
 
     private final ArrayList<PlayerProjectile> projectiles;
     private final ArrayList<IceParticle> iceParticles;
+    private final ArrayList<Entity> enemies;
     private final Image iceBall;
     private Iterator<PlayerProjectile> playeriterator;
     private Iterator<IceParticle> iceParticleiterator;
+    private Iterator<Entity> enemyiterator;
     private final Image lavaSpray;
     public static int iceParticleCreationCount;
     public static final int ICEBALL_ID = 0;
@@ -34,13 +36,14 @@ public class PlayerProjectileManager {
     public static float LAVASPRAY_MIDDLEX;
     public static float LAVASPRAY_MIDDLEY;
 
-    public PlayerProjectileManager() throws SlickException {
+    public PlayerProjectileManager(ArrayList<Entity> enemies) throws SlickException {
+        this.enemies = enemies;
         projectiles = new ArrayList<>();
         iceParticles = new ArrayList<>();
         iceBall = new Image("res/wannabeIce.png");
         lavaSpray = new Image("res/LavaSpray.png");
         ICEBALL_MIDDLEX = iceBall.getWidth() / 2;
-        LAVASPRAY_MIDDLEX = lavaSpray.getWidth() / 2;
+        LAVASPRAY_MIDDLEX = lavaSpray.getWidth() / 2 + 7;
         ICEBALL_MIDDLEY = iceBall.getHeight() / 2;
     }
 
@@ -76,11 +79,14 @@ public class PlayerProjectileManager {
         while (playeriterator.hasNext()) {
             PlayerProjectile p = playeriterator.next();
             p.update(container, game, delta);
+            checkCollision(p);
             if (p.getYPos() < -100 || p.getYPos() > container.getHeight() + 100 || p.getXPos() < -100 || p.getXPos() > container.getWidth() + 100 || p.getLifeTime() <= 0) {
                 playeriterator.remove();
                 MainMenu.count--;
             }
         }
+        
+        
 
         if (iceParticleCreationCount > 15) {
             iceParticleCreationCount = 0;
@@ -98,5 +104,15 @@ public class PlayerProjectileManager {
 
     public void addIceParticle(IceParticle i) {
         iceParticles.add(i);
+    }
+    
+    public void checkCollision(PlayerProjectile p){
+        enemyiterator = enemies.iterator();
+        while (enemyiterator.hasNext()){
+            Entity e = enemyiterator.next();
+            if(p.checkCollision(e.getBounds())){
+                p.collision(e);
+            }
+        }
     }
 }

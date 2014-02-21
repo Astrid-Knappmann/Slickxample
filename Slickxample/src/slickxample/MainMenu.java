@@ -28,6 +28,9 @@ public class MainMenu extends BasicGameState {
     private Player player;
     private ArrayList<PlayerProjectile> projectiles;
     private PlayerProjectileManager projectileManager;
+    private ArrayList<Entity> enemies;
+    private EnemyManager enemyManager;
+    private AngleCalculator angleCalc;
     private Input input;
     private float mouseX = 0;
     private float mouseY = 0;
@@ -49,16 +52,19 @@ public class MainMenu extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         startButton = new Image("res/wannabeIce.png");
-        projectileManager = new PlayerProjectileManager();
+        enemies = new ArrayList<>();
+        enemyManager = new EnemyManager(enemies);
+        projectileManager = new PlayerProjectileManager(enemies);
         player = new Player(300, 300, startButton, projectileManager);
+        angleCalc = new AngleCalculator(player);
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         player.render(container, game, g);
         projectileManager.render(container, game, g);
+        enemyManager.render(container, game, g);
         g.drawString(Integer.toString(count), 300, 50);
-
 
     }
 
@@ -66,18 +72,25 @@ public class MainMenu extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         player.update(container, game, delta);
         projectileManager.update(container, game, delta);
-        particleCount += 1*delta;
+        enemyManager.update(container, game, delta);
+        particleCount += 1 * delta;
         input = container.getInput();
         mouseX = input.getMouseX();
         mouseY = input.getMouseY();
         if (mouseX != oldMouseX || mouseY != oldMouseY) {
-        if (particleCount > 15) {
-            projectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/wannabeIce.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
-            count++;
-            particleCount = 0;
+            if (particleCount > 15) {
+                projectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/wannabeIce.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
+                count++;
+                particleCount = 0;
             }
         }
-
+        if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
+            enemyManager.SpawnProjectile(50, 50, 0);
+            enemyManager.SpawnProjectile(110, 50, 0);
+            enemyManager.SpawnProjectile(170, 50, 0);
+            enemyManager.SpawnProjectile(230, 50, 0);
+            enemyManager.SpawnProjectile(290, 50, 0);
+        }
         oldMouseX = mouseX;
         oldMouseY = mouseY;
     }
