@@ -18,6 +18,7 @@ public class TileManager {
     private final int waterTileId = 0;
     private final int islandTileId = 1;
     private final int tileSize = 32;
+    private final float scrollspeed = 0.04f;
     private Image water;
     private Image island;
 
@@ -27,6 +28,10 @@ public class TileManager {
     public void init(GameContainer container, StateBasedGame game) throws SlickException{
         water = new Image("res/water.png");
         island = new Image("res/island.png");
+    }
+
+    public float getScrollspeed() {
+        return scrollspeed;
     }
 
     public Image getWater() {
