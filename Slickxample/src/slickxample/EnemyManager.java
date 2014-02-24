@@ -13,8 +13,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-import static slickxample.PlayerProjectileManager.ICEBALL_MIDDLEX;
-import static slickxample.PlayerProjectileManager.ICEBALL_MIDDLEY;
 
 /**
  *
@@ -61,27 +59,27 @@ public class EnemyManager {
         while (enemyiterator.hasNext()) {
             Entity e = enemyiterator.next();
             Rectangle p = e.getPathing();
-            boolean hasMoved = false;
+//            boolean hasMoved = false;
             for (Entity i : enemies) {
                 Rectangle r = i.getPathing();
 //consider && !hasMoved
                 if (p.intersects(r) && !p.equals(r)) {
                     if (p.getMaxY() - r.getMinY() < 4) {
                         e.setyPos(e.getyPos() - (p.getMaxY() - r.getMinY()));
-                        hasMoved = true;
+//                        hasMoved = true;
                     }
                     if (p.getMaxY() - r.getMinY() > 18) {
                         e.setyPos(e.getyPos() + (r.getMaxY() - p.getMinY()));
-                        hasMoved = true;
+//                        hasMoved = true;
                     }
 
                     if (p.getMaxX() - r.getMinX() < 4) {
                         e.setxPos(e.getxPos() - (p.getMaxX() - r.getMinX()));
-                        hasMoved = true;
+//                        hasMoved = true;
                     }
                     if (p.getMaxX() - r.getMinX() > 28) {
                         e.setxPos(e.getxPos() + (r.getMaxX() - p.getMinX()));
-                        hasMoved = true;
+//                        hasMoved = true;
 
                     }
 

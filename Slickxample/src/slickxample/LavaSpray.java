@@ -17,7 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class LavaSpray extends PlayerProjectile {
 
     public LavaSpray(float xPos, float yPos, float angle, Image texture) {
-        super(xPos, yPos, angle, texture);
+        super(xPos, yPos, angle + (RandomTool.getRandom().nextFloat() / 3 - 0.1666f), texture);
         super.speed = 0.2f;
         super.lifeTime = 800 + RandomTool.getRandom().nextInt(150);
         super.damage = 1;

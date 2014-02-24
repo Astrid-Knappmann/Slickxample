@@ -57,7 +57,7 @@ public class Player extends Entity {
         } else {
             if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                 if (reloadTime <= 0) {
-                    projectiles.SpawnProjectile(xPos, yPos, AngleCalculator.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX) + (RandomTool.getRandom().nextFloat() / 3 - 0.1666f), 1);
+                    projectiles.SpawnProjectile(xPos, yPos, AngleCalculator.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);
                     reloadTime = PlayerProjectileManager.LAVASPRAY_RELOAD;
                 }
             }
