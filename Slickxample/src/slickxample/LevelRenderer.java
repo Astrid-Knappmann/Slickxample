@@ -53,6 +53,9 @@ public class LevelRenderer {
     private int[][] nextMap;
     private boolean loadNextMap = false;
     private int nextMapArrayPos = 0;
+    private int mapDelta = 0;
+    private int oldMapSize = 1;
+    private int tileMover = 150;
 
     public LevelRenderer(TileManager t) {
         this.t = t;
@@ -76,10 +79,10 @@ public class LevelRenderer {
         for (int y = 0; y < map.size(); y++) {
             for (int x = 0; x < map.get(y).length; x++) {
                 if (map.get(y)[x] == waterId) {
-                    water.draw(x * tileSize, y * tileSize + scroll - 50);
+                    water.draw(x * tileSize, y * tileSize + scroll + tileMover);
                 } else {
                     if (map.get(y)[x] == islandId) {
-                        island.draw(x * tileSize, y * tileSize + scroll - 50);
+                        island.draw(x * tileSize, y * tileSize + scroll + tileMover);
                     }
                 }
             }
@@ -89,37 +92,73 @@ public class LevelRenderer {
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
         scroll += scrollspeed * delta;
+
+
         if (scroll >= tileSize) {
-            for (int y = map.size() - 1; y > -1; y--) {
-                if (y == map.size() - 1) {
-                    i = map.get(0);
-                    if(loadNextMap == true){
-                        if(nextMapArrayPos == nextMap.length -1){
-                            loadNextMap = false;
-                            map.set(0, nextMap[nextMapArrayPos]);
-                            nextMapArrayPos = 0;
-                        } else {
-                        map.set(0, nextMap[nextMapArrayPos]);
-                        nextMapArrayPos++;
-                        }
-                    } else {
-                    map.set(0, map.get(y));
-                    }
-                } else {
-                    if (y == 0) {
-                        map.set(y + 1, i);
-                    } else {
-                        map.set(y + 1, map.get(y));
-                    }
-                }
+            if (loadNextMap) {
+                changeMap();
+            } else {
+
+                int[] i = map.pollLast();
+                map.addFirst(i);
             }
             scroll = 0;
         }
+
     }
-    
-    public void loadNextMap(int[][] nextMap){
+
+    private void changeMap() {
+        if (mapDelta > 0) {
+            if (nextMapArrayPos == nextMap.length - 1) {
+                loadNextMap = false;
+                map.addFirst(nextMap[nextMapArrayPos]);
+                nextMapArrayPos = 0;
+            } else {
+                if (nextMapArrayPos >= oldMapSize) {
+                    map.addFirst(nextMap[nextMapArrayPos]);
+                    nextMapArrayPos++;
+                } else {
+                    map.pollLast();
+                    map.addFirst(nextMap[nextMapArrayPos]);
+                    nextMapArrayPos++;
+                }
+            }
+        } else {
+            if (mapDelta == 0) {
+                if (nextMapArrayPos == nextMap.length - 1) {
+                    loadNextMap = false;
+                    map.pollLast();
+                    map.addFirst(nextMap[nextMapArrayPos]);
+                    nextMapArrayPos = 0;
+                } else {
+                    map.pollLast();
+                    map.addFirst(nextMap[nextMapArrayPos]);
+                    nextMapArrayPos++;
+                }
+            }
+            if (mapDelta < 0) {
+                if (nextMapArrayPos == nextMap.length - 1) {
+                    loadNextMap = false;
+                    map.pollLast();
+                    map.addFirst(nextMap[nextMapArrayPos]);
+                    nextMapArrayPos = 0;
+                    for(int y = 0; y > mapDelta; y--){
+                        map.pollLast();
+                    }
+                } else {
+                    map.pollLast();
+                    map.addFirst(nextMap[nextMapArrayPos]);
+                    nextMapArrayPos++;
+                }
+            }
+        }
+    }
+
+    public void loadNextMap(int[][] nextMap) {
         this.nextMap = nextMap;
         loadNextMap = true;
         nextMapArrayPos = 0;
+        mapDelta = nextMap.length - map.size();
+        oldMapSize = map.size();
     }
 }

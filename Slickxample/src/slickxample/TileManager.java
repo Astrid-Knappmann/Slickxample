@@ -18,7 +18,7 @@ public class TileManager {
     private final int waterTileId = 0;
     private final int islandTileId = 1;
     private final int tileSize = 32;
-    private final float scrollspeed = 0.04f;
+    private final float scrollspeed = 0.14f;
     private Image water;
     private Image island;
 
