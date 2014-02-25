@@ -55,7 +55,7 @@ public class LevelRenderer {
     private int nextMapArrayPos = 0;
     private int mapDelta = 0;
     private int oldMapSize = 1;
-    private int tileMover = 150;
+    private int tileMover = -50;
 
     public LevelRenderer(TileManager t) {
         this.t = t;
@@ -77,6 +77,7 @@ public class LevelRenderer {
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         for (int y = 0; y < map.size(); y++) {
+            if(y * tileSize + scroll + tileMover < container.getHeight() - tileMover){
             for (int x = 0; x < map.get(y).length; x++) {
                 if (map.get(y)[x] == waterId) {
                     water.draw(x * tileSize, y * tileSize + scroll + tileMover);
@@ -86,7 +87,7 @@ public class LevelRenderer {
                     }
                 }
             }
-        }
+        }}
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
