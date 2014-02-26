@@ -32,7 +32,7 @@ public class EnemyManager {
     public void SpawnProjectile(float xPos, float yPos, int id) {
         switch (id) {
             case 0:
-                enemies.add(new TestBox(xPos, yPos, testBox));
+                enemies.add(new Zombie(xPos, yPos, testBox));
                 break;
         }
     }
@@ -50,6 +50,7 @@ public class EnemyManager {
         enemyiterator = enemies.iterator();
         while (enemyiterator.hasNext()) {
             Entity e = enemyiterator.next();
+            e.setyPos(e.getyPos() + TileManager.getScrollspeed() * delta);
             e.update(container, game, delta);
             if (e.getLife() <= 0) {
                 enemyiterator.remove();
@@ -58,34 +59,9 @@ public class EnemyManager {
         enemyiterator = enemies.iterator();
         while (enemyiterator.hasNext()) {
             Entity e = enemyiterator.next();
-            Rectangle p = e.getPathing();
-//            boolean hasMoved = false;
             for (Entity i : enemies) {
-                Rectangle r = i.getPathing();
-//consider && !hasMoved
-                if (p.intersects(r) && !p.equals(r)) {
-                    if (p.getMaxY() - r.getMinY() < 4) {
-                        e.setyPos(e.getyPos() - (p.getMaxY() - r.getMinY()));
-//                        hasMoved = true;
-                    }
-                    if (p.getMaxY() - r.getMinY() > 18) {
-                        e.setyPos(e.getyPos() + (r.getMaxY() - p.getMinY()));
-//                        hasMoved = true;
-                    }
-
-                    if (p.getMaxX() - r.getMinX() < 4) {
-                        e.setxPos(e.getxPos() - (p.getMaxX() - r.getMinX()));
-//                        hasMoved = true;
-                    }
-                    if (p.getMaxX() - r.getMinX() > 28) {
-                        e.setxPos(e.getxPos() + (r.getMaxX() - p.getMinX()));
-//                        hasMoved = true;
-
-                    }
-
-                }
+                e.pathing(i.getPathing());
             }
         }
     }
-
 }

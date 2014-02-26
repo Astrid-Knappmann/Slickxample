@@ -20,6 +20,8 @@ public class Player extends Entity {
     private PlayerProjectileManager projectiles;
     private Input input;
     private float reloadTime;
+    private final float doubleDirectionMultiplier = 0.707114f;
+    private float originalSpeed;
 
     public Player(float xPos, float yPos, Image texture, PlayerProjectileManager projectiles) {
         super(xPos, yPos, texture);
@@ -28,6 +30,7 @@ public class Player extends Entity {
         super.pathingX = 2;
         super.pathingY = 10;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 8, 10);
+        originalSpeed = speed;
     }
 
 //    public void render(GameContainer container, StateBasedGame game, Graphics g) {
@@ -37,11 +40,20 @@ public class Player extends Entity {
     public void update(GameContainer container, StateBasedGame game, int delta) {
         input = container.getInput();
         reloadTime -= 1 * delta;
+        TileManager.setScrollspeed(0);
+        if ((input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_A)) && (!(input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_W)) && (!(input.isKeyDown(Input.KEY_A) && input.isKeyDown(Input.KEY_D))))) {
+            speed = doubleDirectionMultiplier * originalSpeed;
+        } else {
+            speed = originalSpeed;
+
+        }
         if (input.isKeyDown(Input.KEY_S)) {
-            yPos += speed * delta;
+//            yPos += speed * delta;
+            TileManager.setScrollspeed(speed * -1);
         }
         if (input.isKeyDown(Input.KEY_W)) {
-            yPos -= speed * delta;
+//            yPos -= speed * delta;
+            TileManager.setScrollspeed(speed);
         }
         if (input.isKeyDown(Input.KEY_D)) {
             xPos += speed * delta;
@@ -63,7 +75,6 @@ public class Player extends Entity {
             }
         }
         super.update(container, game, delta);
-
     }
 
 //    public float getAngle(float projectileid) {

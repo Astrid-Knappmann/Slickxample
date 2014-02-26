@@ -14,11 +14,11 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author PK
  */
-public class TestBox extends Entity {
+public class Zombie extends Entity {
 
     private float angle;
 
-    public TestBox(float xPos, float yPos, Image texture) {
+    public Zombie(float xPos, float yPos, Image texture) {
         super(xPos, yPos, texture);
         life = 50;
         super.speed = 0.08f;

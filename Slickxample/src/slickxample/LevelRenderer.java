@@ -49,13 +49,15 @@ public class LevelRenderer {
     private int islandId;
     private int tileSize;
     private float scrollspeed;
+    private float mapPos = 0;
     private LinkedList<int[]> map;
     private int[][] nextMap;
     private boolean loadNextMap = false;
-    private int nextMapArrayPos = 0;
+    private int nextMapArrayPosUp = 0;
     private int mapDelta = 0;
     private int oldMapSize = 1;
-    private int tileMover = -50;
+    private int tileMover = -64;
+    private int nextMapArrayPosDown = 0;
 
     public LevelRenderer(TileManager t) {
         this.t = t;
@@ -77,7 +79,8 @@ public class LevelRenderer {
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         for (int y = 0; y < map.size(); y++) {
-            if(y * tileSize + scroll + tileMover < container.getHeight() - tileMover){
+            //needs fixing
+            if((y * tileSize  + tileMover < container.getHeight() - tileMover - scroll) && y*tileSize + scroll  > 0 + tileMover){
             for (int x = 0; x < map.get(y).length; x++) {
                 if (map.get(y)[x] == waterId) {
                     water.draw(x * tileSize, y * tileSize + scroll + tileMover);
@@ -91,65 +94,70 @@ public class LevelRenderer {
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-
+        scrollspeed = t.getScrollspeed();
         scroll += scrollspeed * delta;
-
 
         if (scroll >= tileSize) {
             if (loadNextMap) {
                 changeMap();
             } else {
 
-                int[] i = map.pollLast();
+                int[] i = map.getLast();
                 map.addFirst(i);
+                mapPos += 32;
             }
             scroll = 0;
+            
+        } if(scroll <= tileSize * -1){
+//            int[] i = map.pollFirst();
+//            map.addLast(i);
+//            scroll = 0;
         }
 
     }
 
     private void changeMap() {
         if (mapDelta > 0) {
-            if (nextMapArrayPos == nextMap.length - 1) {
+            if (nextMapArrayPosUp == nextMap.length - 1) {
                 loadNextMap = false;
-                map.addFirst(nextMap[nextMapArrayPos]);
-                nextMapArrayPos = 0;
+                map.addFirst(nextMap[nextMapArrayPosUp]);
+                nextMapArrayPosUp = 0;
             } else {
-                if (nextMapArrayPos >= oldMapSize) {
-                    map.addFirst(nextMap[nextMapArrayPos]);
-                    nextMapArrayPos++;
+                if (nextMapArrayPosUp >= oldMapSize) {
+                    map.addFirst(nextMap[nextMapArrayPosUp]);
+                    nextMapArrayPosUp++;
                 } else {
                     map.pollLast();
-                    map.addFirst(nextMap[nextMapArrayPos]);
-                    nextMapArrayPos++;
+                    map.addFirst(nextMap[nextMapArrayPosUp]);
+                    nextMapArrayPosUp++;
                 }
             }
         } else {
             if (mapDelta == 0) {
-                if (nextMapArrayPos == nextMap.length - 1) {
+                if (nextMapArrayPosUp == nextMap.length - 1) {
                     loadNextMap = false;
                     map.pollLast();
-                    map.addFirst(nextMap[nextMapArrayPos]);
-                    nextMapArrayPos = 0;
+                    map.addFirst(nextMap[nextMapArrayPosUp]);
+                    nextMapArrayPosUp = 0;
                 } else {
                     map.pollLast();
-                    map.addFirst(nextMap[nextMapArrayPos]);
-                    nextMapArrayPos++;
+                    map.addFirst(nextMap[nextMapArrayPosUp]);
+                    nextMapArrayPosUp++;
                 }
             }
             if (mapDelta < 0) {
-                if (nextMapArrayPos == nextMap.length - 1) {
+                if (nextMapArrayPosUp == nextMap.length - 1) {
                     loadNextMap = false;
                     map.pollLast();
-                    map.addFirst(nextMap[nextMapArrayPos]);
-                    nextMapArrayPos = 0;
+                    map.addFirst(nextMap[nextMapArrayPosUp]);
+                    nextMapArrayPosUp = 0;
                     for(int y = 0; y > mapDelta; y--){
                         map.pollLast();
                     }
                 } else {
                     map.pollLast();
-                    map.addFirst(nextMap[nextMapArrayPos]);
-                    nextMapArrayPos++;
+                    map.addFirst(nextMap[nextMapArrayPosUp]);
+                    nextMapArrayPosUp++;
                 }
             }
         }
@@ -158,7 +166,8 @@ public class LevelRenderer {
     public void loadNextMap(int[][] nextMap) {
         this.nextMap = nextMap;
         loadNextMap = true;
-        nextMapArrayPos = 0;
+        nextMapArrayPosUp = 0;
+        nextMapArrayPosDown = nextMap.length -1;
         mapDelta = nextMap.length - map.size();
         oldMapSize = map.size();
     }

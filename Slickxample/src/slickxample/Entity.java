@@ -42,6 +42,24 @@ public abstract class Entity {
         bounds.setLocation(xPos, yPos);
         pathing.setLocation(xPos + pathingX, yPos + pathingY);
     }
+    
+    public void pathing(Rectangle r){
+        if (pathing.intersects(r) && !pathing.equals(r)) {
+                    if (pathing.getMaxY() - r.getMinY() < 4) {
+                        setyPos(getyPos() - (pathing.getMaxY() - r.getMinY()));
+                    }
+                    if (pathing.getMaxY() - r.getMinY() > 18) {
+                        setyPos(getyPos() + (r.getMaxY() - pathing.getMinY()));
+                    }
+                    if (pathing.getMaxX() - r.getMinX() < 4) {
+                        setxPos(getxPos() - (pathing.getMaxX() - r.getMinX()));
+                    }
+                    if (pathing.getMaxX() - r.getMinX() > 28) {
+                        setxPos(getxPos() + (r.getMaxX() - pathing.getMinX()));
+                    }
+
+                }
+    }
 
     public float getLife() {
         return life;
