@@ -78,6 +78,7 @@ public class PlayerProjectileManager {
         iceParticleCreationCount += 1 * delta;
         while (playeriterator.hasNext()) {
             PlayerProjectile p = playeriterator.next();
+            p.setYPos((p.getYPos() + TileManager.getScrollspeed() * delta));
             p.update(container, game, delta);
             checkCollision(p);
             if (p.getYPos() < -100 || p.getYPos() > container.getHeight() + 100 || p.getXPos() < -100 || p.getXPos() > container.getWidth() + 100 || p.getLifeTime() <= 0) {

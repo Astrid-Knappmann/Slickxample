@@ -5,6 +5,7 @@
 package slickxample;
 
 import java.util.LinkedList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,6 +21,10 @@ public class LevelRenderer {
     private TileManager t;
     int[] i = null;
     private int[][] defaultMap = {
+        {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
+        {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
+        {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
+        {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
         {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
         {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
         {RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2), RandomTool.getRandom().nextInt(2)},
@@ -78,19 +83,21 @@ public class LevelRenderer {
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        MainMenu.count = 0;
         for (int y = 0; y < map.size(); y++) {
-            //needs fixing
-            if((y * tileSize  + tileMover < container.getHeight() - tileMover - scroll) && y*tileSize + scroll  > 0 + tileMover){
-            for (int x = 0; x < map.get(y).length; x++) {
-                if (map.get(y)[x] == waterId) {
-                    water.draw(x * tileSize, y * tileSize + scroll + tileMover);
-                } else {
-                    if (map.get(y)[x] == islandId) {
-                        island.draw(x * tileSize, y * tileSize + scroll + tileMover);
+            if (y * tileSize + scroll < container.getHeight() - tileMover && y * tileSize + scroll > 0 + tileMover) {
+                for (int x = 0; x < map.get(y).length; x++) {
+                    if (map.get(y)[x] == waterId) {
+                        water.draw(x * tileSize, y * tileSize + scroll + tileMover);
+                    } else {
+                        if (map.get(y)[x] == islandId) {
+                            island.draw(x * tileSize, y * tileSize + scroll + tileMover);
+                        }
                     }
                 }
+                MainMenu.count++;
             }
-        }}
+        }
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
@@ -107,8 +114,9 @@ public class LevelRenderer {
                 mapPos += 32;
             }
             scroll = 0;
-            
-        } if(scroll <= tileSize * -1){
+
+        }
+        if (scroll <= tileSize * -1) {
 //            int[] i = map.pollFirst();
 //            map.addLast(i);
 //            scroll = 0;
@@ -151,7 +159,7 @@ public class LevelRenderer {
                     map.pollLast();
                     map.addFirst(nextMap[nextMapArrayPosUp]);
                     nextMapArrayPosUp = 0;
-                    for(int y = 0; y > mapDelta; y--){
+                    for (int y = 0; y > mapDelta; y--) {
                         map.pollLast();
                     }
                 } else {
@@ -167,7 +175,7 @@ public class LevelRenderer {
         this.nextMap = nextMap;
         loadNextMap = true;
         nextMapArrayPosUp = 0;
-        nextMapArrayPosDown = nextMap.length -1;
+        nextMapArrayPosDown = nextMap.length - 1;
         mapDelta = nextMap.length - map.size();
         oldMapSize = map.size();
     }
