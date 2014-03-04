@@ -65,7 +65,7 @@ public abstract class PlayerProjectile {
         return xPos;
     }
 
-    public void setYPos(float YPos) {
+    public void setYPos(float yPos) {
         this.yPos = yPos;
     }
 

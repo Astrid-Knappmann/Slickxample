@@ -23,7 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainMenu extends BasicGameState {
 
     private int id;
-    private Image startButton;
+    private Image playerImg;
     private ArrayList<IceParticle> particleEffects;
     private Player player;
     private ArrayList<PlayerProjectile> projectiles;
@@ -40,6 +40,7 @@ public class MainMenu extends BasicGameState {
     private float oldMouseY = 0;
     public static int count = 0;
     private float particleCount = 0;
+    private LevelCreator lvlCreator; 
     private int[][] map = {
         {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -84,15 +85,16 @@ public class MainMenu extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        startButton = new Image("res/wannabeIce.png");
+        playerImg = new Image("res/Player.png");
         enemies = new ArrayList<>();
         enemyManager = new EnemyManager(enemies);
         projectileManager = new PlayerProjectileManager(enemies);
-        player = new Player(300, 300, startButton, projectileManager);
+        player = new Player(300, 300, playerImg, projectileManager);
         angleCalc = new AngleCalculator(player);
         tileM = new TileManager();
         tileM.init(container, game);
-        level = new LevelRenderer(tileM);
+        lvlCreator = new LevelCreator();
+        level = new LevelRenderer(tileM, lvlCreator);
         level.init(container, game);
     }
 

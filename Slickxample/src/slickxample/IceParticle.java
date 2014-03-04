@@ -36,6 +36,7 @@ public class IceParticle extends PlayerProjectile {
     public void update(GameContainer container, StateBasedGame game, int delta) {
         texture.rotate(rotation * delta);
         lifeTime -= 1 * delta;
+        yPos+= TileManager.getScrollspeed() * delta;
         if (lifeTime <= 520) {
             texture.setAlpha(alpha -= 0.001 * delta);
         }
