@@ -9,6 +9,7 @@ import java.util.Iterator;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,6 +27,8 @@ public class PlayerProjectileManager {
     private Iterator<IceParticle> iceParticleiterator;
     private Iterator<Entity> enemyiterator;
     private final Image lavaSpray;
+    private final Image lightning;
+    private Input input;
     public static int iceParticleCreationCount;
     public static final int ICEBALL_ID = 0;
     public static float ICEBALL_MIDDLEX;
@@ -35,16 +38,19 @@ public class PlayerProjectileManager {
     public static final float LAVASPRAY_RELOAD = 7;
     public static float LAVASPRAY_MIDDLEX;
     public static float LAVASPRAY_MIDDLEY;
+    public static float LIGHTNING_MIDDLEX;
 
     public PlayerProjectileManager(ArrayList<Entity> enemies) throws SlickException {
         this.enemies = enemies;
         projectiles = new ArrayList<>();
         iceParticles = new ArrayList<>();
-        iceBall = new Image("res/wannabeIce.png");
+        iceBall = new Image("res/ice.png");
         lavaSpray = new Image("res/LavaSpray.png");
+        lightning = new Image("res/lightning.png");
         ICEBALL_MIDDLEX = iceBall.getWidth() / 2;
         LAVASPRAY_MIDDLEX = lavaSpray.getWidth() / 2 + 7;
         ICEBALL_MIDDLEY = iceBall.getHeight() / 2;
+        LIGHTNING_MIDDLEX = lightning.getWidth() / 2;
     }
 
     public void SpawnProjectile(float xPos, float yPos, float angle, int id) {
@@ -54,6 +60,8 @@ public class PlayerProjectileManager {
                 break;
             case 1:
                 projectiles.add(new LavaSpray(xPos + ICEBALL_MIDDLEX, yPos + ICEBALL_MIDDLEY, angle, lavaSpray));
+                break;
+            case 2: projectiles.add(new Lightning(xPos, yPos, angle, AngleCalculator.getAngleInvX(input, LIGHTNING_MIDDLEX), AngleCalculator.getDistance(input, LIGHTNING_MIDDLEX), lightning));
                 break;
         }
         MainMenu.count++;
@@ -101,6 +109,7 @@ public class PlayerProjectileManager {
                 MainMenu.count--;
             }
         }
+        input = container.getInput();
     }
 
     public void addIceParticle(IceParticle i) {

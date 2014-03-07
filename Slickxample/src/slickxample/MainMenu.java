@@ -40,6 +40,7 @@ public class MainMenu extends BasicGameState {
     public static int count = 0;
     private float particleCount = 0;
     private LevelCreator lvlCreator; 
+    private EnemyCreator enemyCreator;
     private int[][] map = {
         {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -86,14 +87,16 @@ public class MainMenu extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         playerImg = new Image("res/Player.png");
         enemies = new ArrayList<>();
-        enemyManager = new EnemyManager(enemies);
+        enemyCreator = new EnemyCreator();
+        enemyCreator.init(container, game);
+        enemyManager = new EnemyManager(enemies, enemyCreator);
         projectileManager = new PlayerProjectileManager(enemies);
         player = new Player(300, 300, playerImg, projectileManager);
         angleCalc = new AngleCalculator(player);
         tileM = new TileManager();
         tileM.init(container, game);
         lvlCreator = new LevelCreator();
-        level = new LevelRenderer(tileM, lvlCreator);
+        level = new LevelRenderer(tileM, lvlCreator, enemyManager);
         level.init(container, game);
     }
 
@@ -121,7 +124,7 @@ public class MainMenu extends BasicGameState {
         mouseY = input.getMouseY();
         if (mouseX != oldMouseX || mouseY != oldMouseY) {
             if (particleCount > 15) {
-                projectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/wannabeIce.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
+                projectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/ice.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
                 count++;
                 particleCount = 0;
             }
@@ -134,7 +137,6 @@ public class MainMenu extends BasicGameState {
             enemyManager.SpawnProjectile(290, 50, 0);
         }
         if(input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)){
-            level.loadNextMap(map);
         }
         oldMouseX = mouseX;
         oldMouseY = mouseY;

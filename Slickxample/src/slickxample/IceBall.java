@@ -39,7 +39,7 @@ public class IceBall extends PlayerProjectile {
         texture.rotate(1 * delta);
         try {
             if (PlayerProjectileManager.iceParticleCreationCount > 15) {
-                particleEffects.add(new IceParticle(xPos, yPos, new Image("res/wannabeIce.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
+                particleEffects.add(new IceParticle(xPos, yPos, new Image("res/ice.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
                 MainMenu.count++;
             }
         } catch (SlickException ex) {

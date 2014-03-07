@@ -53,12 +53,13 @@ public abstract class PlayerProjectile {
         if (lifeTime != 0) {
             e.setLife(e.getLife() - damage);
             lifeTime = 0;
-            System.out.println(e.getLife());
         }
     }
 
     public void setXPos(float xPos) {
         this.xPos = xPos;
+        bounds.setX(xPos);
+
     }
 
     public float getXPos() {
@@ -67,6 +68,8 @@ public abstract class PlayerProjectile {
 
     public void setYPos(float yPos) {
         this.yPos = yPos;
+        bounds.setY(yPos);
+
     }
 
     public float getYPos() {

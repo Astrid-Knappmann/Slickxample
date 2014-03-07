@@ -17,10 +17,14 @@ public class TileManager {
     
     private final int waterTileId = 0;
     private final int islandTileId = 1;
-    private final int tileSize = 32;
-    private static float scrollspeed = 0.04f;
+    public static final int tileSize = 32;
+    public static float scrollspeed = 0.04f;
     private Image water;
     private Image island;
+    public static final int tileMover = -64;
+
+    
+    
 
     public TileManager() {
     }
@@ -56,6 +60,10 @@ public class TileManager {
 
     public static void setScrollspeed(float scrollspeed) {
         TileManager.scrollspeed = scrollspeed;
+    }
+    
+    public static int getTileMover() {
+        return tileMover;
     }
     
     

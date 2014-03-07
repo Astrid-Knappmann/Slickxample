@@ -23,12 +23,23 @@ public class EnemyManager {
     private ArrayList<Entity> enemies;
     private Image testBox;
     private Iterator<Entity> enemyiterator;
+    private EnemyCreator creator;
 
-    public EnemyManager(ArrayList<Entity> enemies) throws SlickException {
+    public EnemyManager(ArrayList<Entity> enemies, EnemyCreator creator) throws SlickException {
         this.enemies = enemies;
+        this.creator = creator;
         testBox = new Image("res/Zombie.png");
     }
 
+    public void spawnEnemies(int lvl){
+        ArrayList<Entity> list = creator.spawnEnemies(lvl);
+        if(!(list == null)){
+            for(Entity e : list){
+                enemies.add(e);
+            }
+        }
+    }
+    
     public void SpawnProjectile(float xPos, float yPos, int id) {
         switch (id) {
             case 0:
