@@ -1,0 +1,5 @@
+Random Items drop from monsters
+XP system
+Yoma power. Use it to become powerful, but use it too much and turn into a yoma. Needs several stages.
+Yoma stages come with consequences. Different dialogue options. Higher Yoma stages come with hunger for humans.
+

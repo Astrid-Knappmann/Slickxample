@@ -1,2 +1,3 @@
 Flower on the map. Go inspect it. "At first glance it looked like a flower, but after thoroughly inspecting it, you are now completely sure that it is indeed a flower."
 House on the map. You can enter, or destroy it. Should have consequences, maybe person inside would give directions?
+Cannibal camp. Kill their leader for honor and glory, or eat him if yoma, to gain their respect.
