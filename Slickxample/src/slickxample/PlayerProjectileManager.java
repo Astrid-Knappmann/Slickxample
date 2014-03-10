@@ -6,6 +6,8 @@ package slickxample;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -33,12 +35,13 @@ public class PlayerProjectileManager {
     public static final int ICEBALL_ID = 0;
     public static float ICEBALL_MIDDLEX;
     public static float ICEBALL_MIDDLEY;
-    public static final float ICEBALL_RELOAD = 400;
+    public static final float ICEBALL_RELOAD = 200;
     public static final int LAVASPRAY_ID = 1;
-    public static final float LAVASPRAY_RELOAD = 7;
+    public static final float LAVASPRAY_RELOAD = 3;
     public static float LAVASPRAY_MIDDLEX;
     public static float LAVASPRAY_MIDDLEY;
     public static float LIGHTNING_MIDDLEX;
+    public static final float LIGHTNING_RELOAD = 150;
 
     public PlayerProjectileManager(ArrayList<Entity> enemies) throws SlickException {
         this.enemies = enemies;
@@ -53,18 +56,22 @@ public class PlayerProjectileManager {
         LIGHTNING_MIDDLEX = lightning.getWidth() / 2;
     }
 
-    public void SpawnProjectile(float xPos, float yPos, float angle, int id) {
-        switch (id) {
-            case 0:
-                projectiles.add(new IceBall(xPos, yPos, angle, iceBall, iceParticles));
+    public void SpawnProjectile(float xPos, float yPos, float angle, int id)  {
+        try {
+            switch (id) {
+                case 0:
+                    projectiles.add(new IceBall(xPos, yPos, angle, iceBall, iceParticles));
+                    break;
+                case 1:
+                    projectiles.add(new LavaSpray(xPos + ICEBALL_MIDDLEX, yPos + ICEBALL_MIDDLEY, angle, lavaSpray));
+                    break;
+                case 2: projectiles.add(new Lightning(xPos, yPos, angle, AngleCalculator.getAngleInvX(input, LIGHTNING_MIDDLEX), new Image("res/lightning.png")));
                 break;
-            case 1:
-                projectiles.add(new LavaSpray(xPos + ICEBALL_MIDDLEX, yPos + ICEBALL_MIDDLEY, angle, lavaSpray));
-                break;
-            case 2: projectiles.add(new Lightning(xPos, yPos, angle, AngleCalculator.getAngleInvX(input, LIGHTNING_MIDDLEX), AngleCalculator.getDistance(input, LIGHTNING_MIDDLEX), lightning));
-                break;
+            }
+            MainMenu.count++;
+        } catch (SlickException ex) {
+            Logger.getLogger(PlayerProjectileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        MainMenu.count++;
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {

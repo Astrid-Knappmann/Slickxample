@@ -5,7 +5,9 @@
  */
 package slickxample;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
@@ -20,7 +22,8 @@ public class Zombie extends Entity {
 
     public Zombie(float xPos, float yPos, Image texture) {
         super(xPos, yPos, texture);
-        life = 50;
+        super.life = 100;
+        super.maxLife = 100;
         super.speed = 0.08f;
         super.pathingX = 4;
         super.pathingY = 25;
@@ -35,5 +38,17 @@ public class Zombie extends Entity {
         super.update(container, game, delta);
 
     }
+
+    @Override
+    public void render(GameContainer container, StateBasedGame game, Graphics g) {
+        super.render(container, game, g);
+        g.setColor(Color.black);
+        g.fillRect(xPos + 2,  yPos - 10, texture.getWidth() - 2, 5);
+        g.setColor(Color.red);
+        g.fillRect(xPos + 3, yPos - 9, (texture.getWidth() - 2) * (life /maxLife), 3);
+        
+    }
+    
+    
 
 }

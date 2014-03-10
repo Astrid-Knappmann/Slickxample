@@ -39,7 +39,7 @@ public class Player extends Entity {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         input = container.getInput();
-        reloadTime -= 1 * delta;
+        reloadTime -= 0.5 * delta;
         TileManager.setScrollspeed(0);
         if ((input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_A)) && (!(input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_W)) && (!(input.isKeyDown(Input.KEY_A) && input.isKeyDown(Input.KEY_D))))) {
             speed = doubleDirectionMultiplier * originalSpeed;
@@ -70,7 +70,7 @@ public class Player extends Entity {
             if (input.isKeyDown(Input.KEY_E)) {
                 if (reloadTime <= 0) {
                     projectiles.SpawnProjectile(xPos, yPos, AngleCalculator.getAngle(input, PlayerProjectileManager.LIGHTNING_MIDDLEX), 2);
-                    reloadTime = PlayerProjectileManager.ICEBALL_RELOAD;
+                    reloadTime = PlayerProjectileManager.LIGHTNING_RELOAD;
                 }} else {
                     if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                         if (reloadTime <= 0) {

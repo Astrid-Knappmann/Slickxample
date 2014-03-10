@@ -43,8 +43,8 @@ public class AngleCalculator {
     }
     
     public static float getAngleInvX(Input input, float projectileid) {
-        float deltax = -input.getMouseX() - projectileid + player.getxPos();
-        float deltay = input.getMouseY() - projectileid - player.getyPos();
+        float deltax = -input.getMouseX() + projectileid + player.getxPos();
+        float deltay = input.getMouseY() + projectileid - player.getyPos();
         float angle = (float) Math.atan2(deltax, deltay);
         return angle;
     }

@@ -37,14 +37,14 @@ public class EnemyCreator {
     }
     
     public ArrayList<Entity> spawnEnemieslvl1() {
-        int random = RandomTool.getRandom().nextInt(13);
+        int random = RandomTool.getRandom().nextInt(20);
         if (random >= 0 && random <= 9) {
             return null;
         }
-        if (random >= 10 && random <= 11) {
+        if (random >= 16 && random <= 18) {
             return lvl1_1();
         }
-        if(random >= 12 && random <= 12){
+        if(random >= 19 && random <= 19){
             return lvl1_2();
         }
         return null;

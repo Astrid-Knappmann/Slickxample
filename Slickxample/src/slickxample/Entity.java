@@ -22,6 +22,7 @@ public abstract class Entity {
     Image texture;
     Rectangle bounds;
     float life;
+    float maxLife;
     float speed;
     Rectangle pathing;
     float pathingX;
