@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/Player.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/Zombie.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/MainMenu.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/TileManager.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/LevelCreator.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/Entity.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/PlayerProjectile.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/PlayerProjectileManager.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/Lightning.java</file>
-            <file>file:/C:/Users/Patrick/Documents/GitHub/Slickxample/Slickxample/src/slickxample/LevelRenderer.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
