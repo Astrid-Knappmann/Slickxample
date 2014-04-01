@@ -43,7 +43,7 @@ public class EnemyManager {
     public void SpawnProjectile(float xPos, float yPos, int id) {
         switch (id) {
             case 0:
-                enemies.add(new Zombie(xPos, yPos, testBox));
+                enemies.add(new Zombie(xPos, yPos));
                 break;
         }
     }

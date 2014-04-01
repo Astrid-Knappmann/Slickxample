@@ -24,7 +24,6 @@ public class EnemyCreator {
     }
 
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        zombieImg = new Image("res/Zombie.png");
         screenWidth = container.getWidth();
     }
 
@@ -54,7 +53,7 @@ public class EnemyCreator {
         ArrayList<Entity> list = new ArrayList<>();
         int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
         for (int y = 0; y < 3; y++) {
-            list.add(new Zombie(xPosMover + getXPos(y), getYPos(), zombieImg));
+            list.add(new Zombie(xPosMover + getXPos(y), getYPos()));
         }
         return list;
     }
@@ -63,7 +62,7 @@ public class EnemyCreator {
         ArrayList<Entity> list = new ArrayList<>();
         int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
         for (int y = 0; y < 8; y++) {
-            list.add(new Zombie(xPosMover + getXPos(y), getYPos(), zombieImg));
+            list.add(new Zombie(xPosMover + getXPos(y), getYPos()));
         }
         return list;
     }

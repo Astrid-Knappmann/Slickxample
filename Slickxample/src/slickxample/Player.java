@@ -4,10 +4,13 @@
  */
 package slickxample;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -24,7 +27,13 @@ public class Player extends Entity {
     private float originalSpeed;
 
     public Player(float xPos, float yPos, Image texture, PlayerProjectileManager projectiles) {
-        super(xPos, yPos, texture);
+        super(xPos, yPos);
+        try {
+            super.texture = new Image("res/Player.png");
+        } catch (SlickException ex) {
+            Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        super.bounds = new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
         this.projectiles = projectiles;
         super.speed = 0.1f;
         super.pathingX = 2;

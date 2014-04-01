@@ -28,11 +28,10 @@ public abstract class Entity {
     float pathingX;
     float pathingY;
 
-    public Entity(float xPos, float yPos, Image texture) {
+    public Entity(float xPos, float yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.texture = texture;
-        bounds = new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
+        
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
@@ -68,6 +67,11 @@ public abstract class Entity {
 
     public void setLife(float life) {
         this.life = life;
+    }
+    
+    public void setMaxLife(float life){
+        this.life = life;
+        maxLife = life;
     }
 
     public float getxPos() {
