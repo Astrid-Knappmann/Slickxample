@@ -7,6 +7,7 @@ package slickxample;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -24,22 +25,24 @@ public class EnemyManager {
     private Image testBox;
     private Iterator<Entity> enemyiterator;
     private EnemyCreator creator;
+    private ComparatorY comparatorY;
 
     public EnemyManager(ArrayList<Entity> enemies, EnemyCreator creator) throws SlickException {
         this.enemies = enemies;
         this.creator = creator;
         testBox = new Image("res/Zombie.png");
+        comparatorY = new ComparatorY();
     }
 
-    public void spawnEnemies(int lvl){
+    public void spawnEnemies(int lvl) {
         ArrayList<Entity> list = creator.spawnEnemies(lvl);
-        if(!(list == null)){
-            for(Entity e : list){
+        if (!(list == null)) {
+            for (Entity e : list) {
                 enemies.add(e);
             }
         }
     }
-    
+
     public void SpawnProjectile(float xPos, float yPos, int id) {
         switch (id) {
             case 0:
@@ -49,11 +52,16 @@ public class EnemyManager {
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
+        enemies.sort(comparatorY);
         enemyiterator = enemies.iterator();
         while (enemyiterator.hasNext()) {
             Entity e = enemyiterator.next();
             e.render(container, game, g);
-//            g.draw(e.getPathing());
+            g.draw(e.getPathing());
+            g.setColor(Color.black);
+            g.fillRect(e.getxPos() + 2, e.getyPos() - 10, e.getTexture().getWidth() - 2, 5);
+            g.setColor(Color.red);
+            g.fillRect(e.getxPos() + 3, e.getyPos() - 9, (e.getTexture().getWidth() - 2) * (e.getLife() / e.getMaxLife()), 3);
         }
     }
 

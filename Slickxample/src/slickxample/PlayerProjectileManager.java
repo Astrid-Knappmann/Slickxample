@@ -65,7 +65,7 @@ public class PlayerProjectileManager {
                 case 1:
                     projectiles.add(new LavaSpray(xPos + ICEBALL_MIDDLEX, yPos + ICEBALL_MIDDLEY, angle, lavaSpray));
                     break;
-                case 2: projectiles.add(new Lightning(xPos, yPos, angle, AngleCalculator.getAngleInvX(input, LIGHTNING_MIDDLEX), new Image("res/lightning.png")));
+                case 2: projectiles.add(new Lightning(xPos, yPos, angle, MathTool.getAngleInvX(input, LIGHTNING_MIDDLEX), new Image("res/lightning.png")));
                 break;
             }
             MainMenu.count++;

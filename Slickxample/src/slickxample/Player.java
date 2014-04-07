@@ -72,18 +72,18 @@ public class Player extends Entity {
         }
         if (input.isKeyDown(Input.KEY_SPACE)) {
             if (reloadTime <= 0) {
-                projectiles.SpawnProjectile(xPos, yPos, AngleCalculator.getAngle(input, PlayerProjectileManager.ICEBALL_MIDDLEX), 0);
+                projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.ICEBALL_MIDDLEX), 0);
                 reloadTime = PlayerProjectileManager.ICEBALL_RELOAD;
             }
         } else {
             if (input.isKeyDown(Input.KEY_E)) {
                 if (reloadTime <= 0) {
-                    projectiles.SpawnProjectile(xPos, yPos, AngleCalculator.getAngle(input, PlayerProjectileManager.LIGHTNING_MIDDLEX), 2);
+                    projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LIGHTNING_MIDDLEX), 2);
                     reloadTime = PlayerProjectileManager.LIGHTNING_RELOAD;
                 }} else {
                     if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                         if (reloadTime <= 0) {
-                            projectiles.SpawnProjectile(xPos, yPos, AngleCalculator.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);
+                            projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);
                             reloadTime = PlayerProjectileManager.LAVASPRAY_RELOAD;
                         }
                     }

@@ -29,9 +29,10 @@ public class MainMenu extends BasicGameState {
     private PlayerProjectileManager projectileManager;
     private ArrayList<Entity> enemies;
     private EnemyManager enemyManager;
-    private AngleCalculator angleCalc;
+    private MathTool angleCalc;
     private TileManager tileM;
     private LevelRenderer level;
+    private MoveRegister moveRegister;
     private Input input;
     private float mouseX = 0;
     private float mouseY = 0;
@@ -92,12 +93,14 @@ public class MainMenu extends BasicGameState {
         enemyManager = new EnemyManager(enemies, enemyCreator);
         projectileManager = new PlayerProjectileManager(enemies);
         player = new Player(300, 300, playerImg, projectileManager);
-        angleCalc = new AngleCalculator(player);
+        angleCalc = new MathTool(player);
         tileM = new TileManager();
         tileM.init(container, game);
         lvlCreator = new LevelCreator();
         level = new LevelRenderer(tileM, lvlCreator, enemyManager);
         level.init(container, game);
+        moveRegister = new MoveRegister();
+        moveRegister.init(container, game);
     }
 
     @Override

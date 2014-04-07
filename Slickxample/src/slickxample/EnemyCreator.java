@@ -36,14 +36,17 @@ public class EnemyCreator {
     }
     
     public ArrayList<Entity> spawnEnemieslvl1() {
-        int random = RandomTool.getRandom().nextInt(20);
+        int random = RandomTool.getRandom().nextInt(40);
         if (random >= 0 && random <= 9) {
             return null;
         }
-        if (random >= 16 && random <= 18) {
+        if (random >= 33 && random <= 35) {
             return lvl1_1();
         }
-        if(random >= 19 && random <= 19){
+        if (random >= 36 && random <= 38) {
+            return lvl1_3();
+        }
+        if(random >= 39 && random <= 39){
             return lvl1_2();
         }
         return null;
@@ -63,6 +66,15 @@ public class EnemyCreator {
         int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
         for (int y = 0; y < 8; y++) {
             list.add(new Zombie(xPosMover + getXPos(y), getYPos()));
+        }
+        return list;
+    }
+    
+    private ArrayList<Entity> lvl1_3() {
+        ArrayList<Entity> list = new ArrayList<>();
+        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
+        for (int y = 0; y < 3; y++) {
+            list.add(new SkeletonMage(xPosMover + getXPos(y), getYPos()));
         }
         return list;
     }

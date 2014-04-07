@@ -40,7 +40,7 @@ public class Zombie extends Entity {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        angle = AngleCalculator.getAngleToPlayer(xPos, yPos);
+        angle = MathTool.getAngleToPlayer(xPos, yPos);
         yPos += speed * (float) Math.cos(angle) * delta;
         xPos += speed * (float) Math.sin(angle) * delta;
         super.update(container, game, delta);
@@ -50,10 +50,7 @@ public class Zombie extends Entity {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         super.render(container, game, g);
-        g.setColor(Color.black);
-        g.fillRect(xPos + 2,  yPos - 10, texture.getWidth() - 2, 5);
-        g.setColor(Color.red);
-        g.fillRect(xPos + 3, yPos - 9, (texture.getWidth() - 2) * (life /maxLife), 3);
+        
         
     }
     

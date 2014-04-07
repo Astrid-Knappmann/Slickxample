@@ -1,0 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package slickxample;
+
+/**
+ *
+ * @author Patrick
+ */
+public class MoveCasterTowards implements MoveStrategy{
+
+    private float xMultiplier = 0;
+    private float yMultiplier = 0;
+
+    @Override
+     public void move(Entity e, int delta) {
+        float xPos = e.getxPos();
+        float yPos = e.getyPos();
+        float speed = e.getSpeed();
+        if(xMultiplier == 0 && yMultiplier == 0){
+            float angle = MathTool.getAngleToPlayer(xPos, yPos);
+            xMultiplier = (float) Math.sin(angle + RandomTool.getRandom().nextFloat()*2-1);
+            yMultiplier = (float) Math.cos(angle + RandomTool.getRandom().nextFloat()*2-1);
+        }
+        
+        e.setyPos(yPos += (speed * yMultiplier * delta));
+        e.setxPos(xPos += (speed * xMultiplier * delta));
+    }
+    
+}

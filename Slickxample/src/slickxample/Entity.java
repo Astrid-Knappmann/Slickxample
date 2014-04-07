@@ -110,6 +110,18 @@ public abstract class Entity {
         this.pathing = pathing;
     }
     
+    public float getSpeed(){
+        return speed;
+    }
+    
+    public Image getTexture(){
+        return texture;
+    }
+    
+    public float getMaxLife(){
+        return maxLife;
+    }
+    
     
 
 
