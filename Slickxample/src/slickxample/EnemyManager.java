@@ -6,6 +6,7 @@
 package slickxample;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -52,16 +53,13 @@ public class EnemyManager {
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
-        enemies.sort(comparatorY);
+        Collections.sort(enemies, comparatorY);
         enemyiterator = enemies.iterator();
         while (enemyiterator.hasNext()) {
             Entity e = enemyiterator.next();
             e.render(container, game, g);
-            g.draw(e.getPathing());
-            g.setColor(Color.black);
-            g.fillRect(e.getxPos() + 2, e.getyPos() - 10, e.getTexture().getWidth() - 2, 5);
-            g.setColor(Color.red);
-            g.fillRect(e.getxPos() + 3, e.getyPos() - 9, (e.getTexture().getWidth() - 2) * (e.getLife() / e.getMaxLife()), 3);
+            drawHealthBars(e, g);
+//            g.draw(e.getPathing());
         }
     }
 
@@ -82,5 +80,12 @@ public class EnemyManager {
                 e.pathing(i.getPathing());
             }
         }
+    }
+
+    public void drawHealthBars(Entity e, Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(e.getxPos() + 2, e.getyPos() - 10, e.getTexture().getWidth() - 2, 5);
+        g.setColor(Color.red);
+        g.fillRect(e.getxPos() + 3, e.getyPos() - 9, (e.getTexture().getWidth() - 2) * (e.getLife() / e.getMaxLife()), 3);
     }
 }

@@ -31,7 +31,7 @@ public abstract class Entity {
     public Entity(float xPos, float yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
-        
+
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
@@ -39,26 +39,27 @@ public abstract class Entity {
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        enforceBorders(container);
         bounds.setLocation(xPos, yPos);
         pathing.setLocation(xPos + pathingX, yPos + pathingY);
     }
-    
-    public void pathing(Rectangle r){
-        if (pathing.intersects(r) && !pathing.equals(r)) {
-                    if (pathing.getMaxY() - r.getMinY() < 4) {
-                        setyPos(getyPos() - (pathing.getMaxY() - r.getMinY()));
-                    }
-                    if (pathing.getMaxY() - r.getMinY() > 18) {
-                        setyPos(getyPos() + (r.getMaxY() - pathing.getMinY()));
-                    }
-                    if (pathing.getMaxX() - r.getMinX() < 4) {
-                        setxPos(getxPos() - (pathing.getMaxX() - r.getMinX()));
-                    }
-                    if (pathing.getMaxX() - r.getMinX() > 28) {
-                        setxPos(getxPos() + (r.getMaxX() - pathing.getMinX()));
-                    }
 
-                }
+    public void pathing(Rectangle r) {
+        if (pathing.intersects(r) && !pathing.equals(r)) {
+            if (pathing.getMaxY() - r.getMinY() < 4) {
+                setyPos(getyPos() - (pathing.getMaxY() - r.getMinY()));
+            }
+            if (pathing.getMaxY() - r.getMinY() > 18) {
+                setyPos(getyPos() + (r.getMaxY() - pathing.getMinY()));
+            }
+            if (pathing.getMaxX() - r.getMinX() < 4) {
+                setxPos(getxPos() - (pathing.getMaxX() - r.getMinX()));
+            }
+            if (pathing.getMaxX() - r.getMinX() > 28) {
+                setxPos(getxPos() + (r.getMaxX() - pathing.getMinX()));
+            }
+
+        }
     }
 
     public float getLife() {
@@ -68,8 +69,8 @@ public abstract class Entity {
     public void setLife(float life) {
         this.life = life;
     }
-    
-    public void setMaxLife(float life){
+
+    public void setMaxLife(float life) {
         this.life = life;
         maxLife = life;
     }
@@ -109,20 +110,35 @@ public abstract class Entity {
     public void setPathing(Rectangle pathing) {
         this.pathing = pathing;
     }
-    
-    public float getSpeed(){
+
+    public float getSpeed() {
         return speed;
     }
-    
-    public Image getTexture(){
+
+    public Image getTexture() {
         return texture;
     }
-    
-    public float getMaxLife(){
+
+    public float getMaxLife() {
         return maxLife;
     }
-    
-    
 
+    public void enforceBorders(GameContainer container) {
+        if (xPos < 0) {
+            setxPos(0);
+        } else {
+            if (xPos + texture.getWidth() > container.getWidth()) {
+                setxPos(container.getWidth() - texture.getWidth());
+            }
+        }
+    }
+    
+    public boolean isVisible(GameContainer container){
+        if(yPos >= 0 && yPos < container.getHeight() - texture.getHeight()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

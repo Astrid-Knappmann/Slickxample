@@ -47,9 +47,14 @@ public class Player extends Entity {
 //    }
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        input = container.getInput();
         reloadTime -= 0.5 * delta;
         TileManager.setScrollspeed(0);
+        reactToInput(container, delta);
+        super.update(container, game, delta);
+    }
+
+    private void reactToInput(GameContainer container, int delta) {
+        input = container.getInput();
         if ((input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_A)) && (!(input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_W)) && (!(input.isKeyDown(Input.KEY_A) && input.isKeyDown(Input.KEY_D))))) {
             speed = doubleDirectionMultiplier * originalSpeed;
         } else {
@@ -80,17 +85,17 @@ public class Player extends Entity {
                 if (reloadTime <= 0) {
                     projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LIGHTNING_MIDDLEX), 2);
                     reloadTime = PlayerProjectileManager.LIGHTNING_RELOAD;
-                }} else {
-                    if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                        if (reloadTime <= 0) {
-                            projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);
-                            reloadTime = PlayerProjectileManager.LAVASPRAY_RELOAD;
-                        }
+                }
+            } else {
+                if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+                    if (reloadTime <= 0) {
+                        projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);
+                        reloadTime = PlayerProjectileManager.LAVASPRAY_RELOAD;
                     }
                 }
-            
+            }
+
         }
-        super.update(container, game, delta);
     }
 
 //    public float getAngle(float projectileid) {

@@ -56,7 +56,7 @@ public class EnemyCreator {
         ArrayList<Entity> list = new ArrayList<>();
         int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
         for (int y = 0; y < 3; y++) {
-            list.add(new Zombie(xPosMover + getXPos(y), getYPos()));
+            list.add(new Zombie(xPosMover + getXPos(y*3), getYPos()));
         }
         return list;
     }
@@ -74,7 +74,7 @@ public class EnemyCreator {
         ArrayList<Entity> list = new ArrayList<>();
         int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
         for (int y = 0; y < 3; y++) {
-            list.add(new SkeletonMage(xPosMover + getXPos(y), getYPos()));
+            list.add(new SkeletonMage(xPosMover + getXPos(y * 3), getYPos()));
         }
         return list;
     }

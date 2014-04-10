@@ -21,9 +21,9 @@ public class MoveCasterTowards implements MoveStrategy{
         float yPos = e.getyPos();
         float speed = e.getSpeed();
         if(xMultiplier == 0 && yMultiplier == 0){
-            float angle = MathTool.getAngleToPlayer(xPos, yPos);
-            xMultiplier = (float) Math.sin(angle + RandomTool.getRandom().nextFloat()*2-1);
-            yMultiplier = (float) Math.cos(angle + RandomTool.getRandom().nextFloat()*2-1);
+            float angle = MathTool.getAngleToPlayer(xPos, yPos) + RandomTool.getRandom().nextFloat()*2-1;
+            xMultiplier = (float) Math.sin(angle);
+            yMultiplier = (float) Math.cos(angle);
         }
         
         e.setyPos(yPos += (speed * yMultiplier * delta));

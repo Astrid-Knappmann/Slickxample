@@ -41,13 +41,17 @@ public class SkeletonMage extends Entity {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        move(delta);
+        super.update(container, game, delta);
+    }
 
+    public void move(int delta) {
         if (MathTool.getDistance(xPos + texture.getWidth() / 2, yPos + texture.getHeight() / 2) < 100 && !recentlyFled) {
             moveStrat = MoveRegister.getFlee();
             moveCounter = 1;
             recentlyFled = true;
         }
-        if (moveCounter >= 4200) {
+        if (moveCounter >= 3800) {
             moveCounter = 0;
 
             recentlyFled = false;
@@ -60,14 +64,7 @@ public class SkeletonMage extends Entity {
                         moveStrat = MoveRegister.getCasterTowards();
                         moveCounter = 500;
                     } else {
-//                        int i = RandomTool.getRandom().nextInt(3);
-//                        if (i <= 1) {
-//                            moveStrat = MoveRegister.getIdle();
-//                        }
-//                        if (i == 2) {
-                            moveStrat = MoveRegister.getCaster1();
-
-//                        }
+                        moveStrat = MoveRegister.getCaster1();
                     }
                 }
             }
@@ -75,9 +72,6 @@ public class SkeletonMage extends Entity {
         }
 
         moveStrat.move(this, delta);
-        super.update(container, game, delta);
-        System.out.println(moveCounter);
-
     }
 
 }
