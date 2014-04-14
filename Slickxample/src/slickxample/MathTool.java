@@ -21,8 +21,8 @@ public class MathTool {
     }
     
     public static float getAngle(Input input, float projectileid) {
-        float deltax = input.getMouseX() - projectileid - (player.getxPos() + player.texture.getWidth()/2);
-        float deltay = input.getMouseY() - projectileid - (player.getyPos() + player.texture.getHeight()/2);
+        float deltax = input.getMouseX() - projectileid - (player.getxPos());
+        float deltay = input.getMouseY() - projectileid - (player.getyPos());
         float angle = (float) Math.atan2(deltax, deltay);
         return angle;
     }
@@ -36,15 +36,15 @@ public class MathTool {
     }
     
     public static float getAngleInvY(Input input, float projectileid) {
-        float deltax = input.getMouseX() - projectileid - (player.getxPos() + player.texture.getWidth()/2);
-        float deltay = -input.getMouseY() - projectileid + (player.getyPos() + player.texture.getHeight()/2);
+        float deltax = input.getMouseX() - projectileid - (player.getxPos());
+        float deltay = -input.getMouseY() - projectileid + (player.getyPos());
         float angle = (float) Math.atan2(deltax, deltay);
         return angle;
     }
     
     public static float getAngleInvX(Input input, float projectileid) {
-        float deltax = -input.getMouseX() + projectileid + (player.getxPos() + player.texture.getWidth()/2);
-        float deltay = input.getMouseY() + projectileid - (player.getyPos() + player.texture.getHeight()/2);
+        float deltax = -input.getMouseX() + projectileid + (player.getxPos());
+        float deltay = input.getMouseY() + projectileid - (player.getyPos());
         float angle = (float) Math.atan2(deltax, deltay);
         return angle;
     }

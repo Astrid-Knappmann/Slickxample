@@ -21,11 +21,11 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class PlayerProjectileManager {
 
-    private final ArrayList<PlayerProjectile> projectiles;
+    private final ArrayList<Projectile> projectiles;
     private final ArrayList<IceParticle> iceParticles;
     private final ArrayList<Entity> enemies;
     private final Image iceBall;
-    private Iterator<PlayerProjectile> playeriterator;
+    private Iterator<Projectile> playeriterator;
     private Iterator<IceParticle> iceParticleiterator;
     private Iterator<Entity> enemyiterator;
     private final Image lavaSpray;
@@ -77,7 +77,7 @@ public class PlayerProjectileManager {
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         playeriterator = projectiles.iterator();
         while (playeriterator.hasNext()) {
-            PlayerProjectile p = playeriterator.next();
+            Projectile p = playeriterator.next();
             p.render(container, game, g);
         }
 
@@ -92,7 +92,7 @@ public class PlayerProjectileManager {
         playeriterator = projectiles.iterator();
         iceParticleCreationCount += 1 * delta;
         while (playeriterator.hasNext()) {
-            PlayerProjectile p = playeriterator.next();
+            Projectile p = playeriterator.next();
             p.setYPos((p.getYPos() + TileManager.getScrollspeed() * delta));
             p.update(container, game, delta);
             checkCollision(p);
@@ -123,7 +123,7 @@ public class PlayerProjectileManager {
         iceParticles.add(i);
     }
     
-    public void checkCollision(PlayerProjectile p){
+    public void checkCollision(Projectile p){
         enemyiterator = enemies.iterator();
         while (enemyiterator.hasNext()){
             Entity e = enemyiterator.next();

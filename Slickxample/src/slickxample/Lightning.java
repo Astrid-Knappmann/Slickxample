@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author PK
  */
-public class Lightning extends PlayerProjectile {
+public class Lightning extends Projectile {
 
     private ArrayList<Entity> hitList;
 

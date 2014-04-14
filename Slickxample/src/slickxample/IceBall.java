@@ -17,7 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author Patrick
  */
-public class IceBall extends PlayerProjectile {
+public class IceBall extends Projectile {
 
     private final ArrayList<IceParticle> particleEffects;
 

@@ -16,7 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author PK
  */
-public abstract class PlayerProjectile {
+public abstract class Projectile {
 
     float xPos;
     float yPos;
@@ -27,7 +27,7 @@ public abstract class PlayerProjectile {
     Rectangle bounds;
     float damage;
 
-    public PlayerProjectile(float xPos, float yPos, float angle, Image texture) {
+    public Projectile(float xPos, float yPos, float angle, Image texture) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.angle = angle;

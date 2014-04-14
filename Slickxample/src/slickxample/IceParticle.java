@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author Patrick
  */
-public class IceParticle extends PlayerProjectile {
+public class IceParticle extends Projectile {
 
     private float alpha = 0.5f;
     private float rotation;

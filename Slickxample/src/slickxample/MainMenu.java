@@ -25,8 +25,9 @@ public class MainMenu extends BasicGameState {
     private Image playerImg;
     private ArrayList<IceParticle> particleEffects;
     private Player player;
-    private ArrayList<PlayerProjectile> projectiles;
-    private PlayerProjectileManager projectileManager;
+    private ArrayList<Projectile> projectiles;
+    private PlayerProjectileManager playerProjectileManager;
+    private EnemyProjectileManager enemyProjectileManager;
     private ArrayList<Entity> enemies;
     private EnemyManager enemyManager;
     private MathTool angleCalc;
@@ -40,39 +41,9 @@ public class MainMenu extends BasicGameState {
     private float oldMouseY = 0;
     public static int count = 0;
     private float particleCount = 0;
-    private LevelCreator lvlCreator; 
+    private LevelCreator lvlCreator;
     private EnemyCreator enemyCreator;
-    private int[][] map = {
-        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1}
-    };
+    
 
     public MainMenu(int id) {
         this.id = id;
@@ -91,8 +62,9 @@ public class MainMenu extends BasicGameState {
         enemyCreator = new EnemyCreator();
         enemyCreator.init(container, game);
         enemyManager = new EnemyManager(enemies, enemyCreator);
-        projectileManager = new PlayerProjectileManager(enemies);
-        player = new Player(300, 300, playerImg, projectileManager);
+        playerProjectileManager = new PlayerProjectileManager(enemies);
+        enemyProjectileManager = new EnemyProjectileManager(player);
+        player = new Player(300, 300, playerImg, playerProjectileManager);
         angleCalc = new MathTool(player);
         tileM = new TileManager();
         tileM.init(container, game);
@@ -107,19 +79,16 @@ public class MainMenu extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         level.render(container, game, g);
         player.render(container, game, g);
-        projectileManager.render(container, game, g);
+        playerProjectileManager.render(container, game, g);
         enemyManager.render(container, game, g);
         g.drawString(Integer.toString(count), 300, 50);
-        
-
-
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         level.update(container, game, delta);
         player.update(container, game, delta);
-        projectileManager.update(container, game, delta);
+        playerProjectileManager.update(container, game, delta);
         enemyManager.update(container, game, delta);
         particleCount += 1 * delta;
         input = container.getInput();
@@ -127,7 +96,7 @@ public class MainMenu extends BasicGameState {
         mouseY = input.getMouseY();
         if (mouseX != oldMouseX || mouseY != oldMouseY) {
             if (particleCount > 15) {
-                projectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/ice.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
+                playerProjectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/ice.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
                 count++;
                 particleCount = 0;
             }
@@ -139,11 +108,11 @@ public class MainMenu extends BasicGameState {
             enemyManager.SpawnProjectile(230, 50, 0);
             enemyManager.SpawnProjectile(290, 50, 0);
         }
-        if(input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)){
+        if (input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)) {
+            
         }
         oldMouseX = mouseX;
         oldMouseY = mouseY;
-
 
     }
 }
