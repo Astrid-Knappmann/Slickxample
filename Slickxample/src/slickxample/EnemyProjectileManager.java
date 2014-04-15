@@ -14,7 +14,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import static slickxample.PlayerProjectileManager.iceParticleCreationCount;
 
 /**
  *
@@ -23,18 +22,20 @@ import static slickxample.PlayerProjectileManager.iceParticleCreationCount;
 public class EnemyProjectileManager {
 
     private Player player;
-    private ArrayList<Projectile> projectiles;
+    private static ArrayList<Projectile> projectiles;
     private Iterator<Projectile> projectileIterator;
 
     public EnemyProjectileManager(Player player) {
         this.player = player;
+        projectiles = new ArrayList<Projectile>();
     }
 
-    public void SpawnProjectile(float xPos, float yPos, float angle, int id) {
+    public static void SpawnProjectile(float xPos, float yPos, float angle, float angle2, int id) {
         try {
             switch (id) {
                 case 0:
-                    throw new SlickException("h");
+                    projectiles.add(new WeakFireball(xPos, yPos, angle, angle2, new Image("res/WeakFireball.png")));
+                break;
 
             }
             MainMenu.count++;
@@ -67,6 +68,7 @@ public class EnemyProjectileManager {
 
     public void checkCollision(Projectile p) {
         if (p.checkCollision(player.getBounds())) {
+            System.out.println("Collision");
             p.collision(player);
         }
     }

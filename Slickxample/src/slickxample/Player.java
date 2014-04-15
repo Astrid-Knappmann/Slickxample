@@ -98,10 +98,4 @@ public class Player extends Entity {
         }
     }
 
-//    public float getAngle(float projectileid) {
-//        float deltax = input.getMouseX() - projectileid - xPos;
-//        float deltay = input.getMouseY() - projectileid - yPos;
-//        float angle = (float) Math.atan2(deltax, deltay);
-//        return angle;
-//    }
 }

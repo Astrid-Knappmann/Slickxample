@@ -56,4 +56,18 @@ public class MathTool {
         return angle;
     }
     
+    public static float getAngleToPlayerInvY(float xPos, float yPos){
+        float deltax = (player.getxPos() + player.texture.getWidth()/2) - xPos;
+        float deltay = (-player.getyPos() + player.texture.getHeight()/2) + yPos;
+        float angle = (float) Math.atan2(deltax, deltay);
+        return angle;
+    }
+    
+    public static float getAngleToPlayerInvX(float xPos, float yPos){
+        float deltax = (player.getxPos() + player.texture.getWidth()/2) + xPos;
+        float deltay = (player.getyPos() + player.texture.getHeight()/2) - yPos;
+        float angle = (float) Math.atan2(deltax, deltay);
+        return angle;
+    }
+    
 }

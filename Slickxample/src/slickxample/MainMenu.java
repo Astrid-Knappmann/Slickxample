@@ -43,7 +43,6 @@ public class MainMenu extends BasicGameState {
     private float particleCount = 0;
     private LevelCreator lvlCreator;
     private EnemyCreator enemyCreator;
-    
 
     public MainMenu(int id) {
         this.id = id;
@@ -63,8 +62,8 @@ public class MainMenu extends BasicGameState {
         enemyCreator.init(container, game);
         enemyManager = new EnemyManager(enemies, enemyCreator);
         playerProjectileManager = new PlayerProjectileManager(enemies);
-        enemyProjectileManager = new EnemyProjectileManager(player);
         player = new Player(300, 300, playerImg, playerProjectileManager);
+        enemyProjectileManager = new EnemyProjectileManager(player);
         angleCalc = new MathTool(player);
         tileM = new TileManager();
         tileM.init(container, game);
@@ -81,6 +80,7 @@ public class MainMenu extends BasicGameState {
         player.render(container, game, g);
         playerProjectileManager.render(container, game, g);
         enemyManager.render(container, game, g);
+        enemyProjectileManager.render(container, game, g);
         g.drawString(Integer.toString(count), 300, 50);
     }
 
@@ -90,6 +90,7 @@ public class MainMenu extends BasicGameState {
         player.update(container, game, delta);
         playerProjectileManager.update(container, game, delta);
         enemyManager.update(container, game, delta);
+        enemyProjectileManager.update(container, game, delta);
         particleCount += 1 * delta;
         input = container.getInput();
         mouseX = input.getMouseX();
@@ -109,7 +110,7 @@ public class MainMenu extends BasicGameState {
             enemyManager.SpawnProjectile(290, 50, 0);
         }
         if (input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)) {
-            
+
         }
         oldMouseX = mouseX;
         oldMouseY = mouseY;

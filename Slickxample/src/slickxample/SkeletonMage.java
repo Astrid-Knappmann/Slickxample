@@ -65,6 +65,10 @@ public class SkeletonMage extends Entity {
                         moveCounter = 500;
                     } else {
                         moveStrat = MoveRegister.getCaster1();
+                        int accuracy = (int) MathTool.getDistance(xPos, yPos) / 2;
+                        float x = (RandomTool.getRandom().nextInt(accuracy) - (accuracy-1)/2);
+                        float y = (RandomTool.getRandom().nextInt(accuracy) - (accuracy-1)/2);
+                        EnemyProjectileManager.SpawnProjectile(xPos, yPos, MathTool.getAngleToPlayer(xPos + x, yPos + y), MathTool.getAngleToPlayerInvY(xPos + x, yPos + y), 0);
                     }
                 }
             }
