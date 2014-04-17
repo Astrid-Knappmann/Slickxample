@@ -12,6 +12,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -33,13 +34,14 @@ public class Player extends Entity {
         } catch (SlickException ex) {
             Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
         }
-        super.bounds = new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
+        super.bounds = new Rectangle(xPos + 3, yPos + 3, texture.getWidth() - 6, texture.getHeight() - 6);
         this.projectiles = projectiles;
         super.speed = 0.1f;
         super.pathingX = 2;
         super.pathingY = 10;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 8, 10);
         originalSpeed = speed;
+        setMaxLife(100);
     }
 
 //    public void render(GameContainer container, StateBasedGame game, Graphics g) {
@@ -97,5 +99,14 @@ public class Player extends Entity {
 
         }
     }
+
+    @Override
+    public void updateBounds() {
+        bounds.setLocation(xPos + 3, yPos + 3);
+    }
+    
+    
+    
+    
 
 }

@@ -15,24 +15,38 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class MoveRegister {
 
+    public static final String CASTER1_ID = "caster1";
+    public static final String CASTERTOWARDS_ID = "casterTowards";
+    public static final String FLEE_ID = "flee";
+    public static final String IDLE_ID = "idle";
+    public static final String FOLLOW_ID = "follow";
 
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        
+
     }
 
-    public static MoveStrategy getCaster1() {
+    public static MoveStrategy getCaster1(Entity e) {
+        e.setCurrentMoveStrat(CASTER1_ID);
         return new MoveCaster1();
     }
 
-    public static MoveStrategy getFlee() {
+    public static MoveStrategy getFlee(Entity e) {
+        e.setCurrentMoveStrat(FLEE_ID);
         return new MoveFlee();
     }
-    
-    public static MoveStrategy getIdle() {
+
+    public static MoveStrategy getIdle(Entity e) {
+        e.setCurrentMoveStrat(IDLE_ID);
         return new MoveIdle();
     }
-     public static MoveStrategy getCasterTowards() {
+
+    public static MoveStrategy getCasterTowards(Entity e) {
+        e.setCurrentMoveStrat(CASTERTOWARDS_ID);
         return new MoveCasterTowards();
     }
 
+    public static MoveStrategy getFollow(Entity e) {
+        e.setCurrentMoveStrat(FOLLOW_ID);
+        return new MoveFollow();
+    }
 }

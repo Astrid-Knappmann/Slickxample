@@ -20,7 +20,7 @@ public class LavaSpray extends Projectile {
         super(xPos, yPos, angle + (RandomTool.getRandom().nextFloat() / 3 - 0.1666f), texture);
         super.speed = 0.2f;
         super.lifeTime = 800 + RandomTool.getRandom().nextInt(150);
-        super.damage = 1;
+        super.damage = 2;
     }
 
     @Override

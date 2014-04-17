@@ -22,9 +22,9 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class EnemyManager {
 
-    private ArrayList<Entity> enemies;
+    private static ArrayList<Entity> enemies;
     private Image testBox;
-    private Iterator<Entity> enemyiterator;
+    private static Iterator<Entity> enemyiterator;
     private EnemyCreator creator;
     private ComparatorY comparatorY;
 
@@ -87,5 +87,15 @@ public class EnemyManager {
         g.fillRect(e.getxPos() + 2, e.getyPos() - 10, e.getTexture().getWidth() - 2, 5);
         g.setColor(Color.red);
         g.fillRect(e.getxPos() + 3, e.getyPos() - 9, (e.getTexture().getWidth() - 2) * (e.getLife() / e.getMaxLife()), 3);
+    }
+    
+    public static void areaDamage(Entity origin, float radius, float damage){
+        enemyiterator = enemies.iterator();
+        while (enemyiterator.hasNext()) {
+            Entity e = enemyiterator.next();
+            if(MathTool.getDistanceBetweenEntities(origin, e) < radius && !e.equals(origin)){
+                e.setLife(e.getLife() - damage);
+            }
+        }
     }
 }

@@ -68,7 +68,6 @@ public class EnemyProjectileManager {
 
     public void checkCollision(Projectile p) {
         if (p.checkCollision(player.getBounds())) {
-            System.out.println("Collision");
             p.collision(player);
         }
     }

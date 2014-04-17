@@ -32,9 +32,10 @@ public class Lightning extends Projectile {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        yPos += speed * (float) Math.cos(angle) * delta;
-        xPos += speed * (float) Math.sin(angle) * delta;
-        bounds.setLocation(bounds.getX() + speed * (float) Math.sin(angle) * delta, bounds.getY() + speed * (float) Math.cos(angle) * delta);
+        super.update(container, game, delta);
+//        yPos += speed * (float) Math.cos(angle) * delta;
+//        xPos += speed * (float) Math.sin(angle) * delta;
+//        bounds.setLocation(bounds.getX() + speed * (float) Math.sin(angle) * delta, bounds.getY() + speed * (float) Math.cos(angle) * delta);
     }
 
     @Override

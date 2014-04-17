@@ -27,6 +27,8 @@ public abstract class Entity {
     Rectangle pathing;
     float pathingX;
     float pathingY;
+    MoveStrategy moveStrat;
+    String currentMoveStrat;
 
     public Entity(float xPos, float yPos) {
         this.xPos = xPos;
@@ -40,7 +42,7 @@ public abstract class Entity {
 
     public void update(GameContainer container, StateBasedGame game, int delta) {
         enforceBorders(container);
-        bounds.setLocation(xPos, yPos);
+        updateBounds();
         pathing.setLocation(xPos + pathingX, yPos + pathingY);
     }
 
@@ -60,6 +62,10 @@ public abstract class Entity {
             }
 
         }
+    }
+    
+    public void act(int delta){
+        
     }
 
     public float getLife() {
@@ -81,7 +87,7 @@ public abstract class Entity {
 
     public void setxPos(float xPos) {
         this.xPos = xPos;
-        bounds.setX(xPos);
+        updateBounds();
         pathing.setX(xPos + pathingX);
     }
 
@@ -91,7 +97,7 @@ public abstract class Entity {
 
     public void setyPos(float yPos) {
         this.yPos = yPos;
-        bounds.setY(yPos);
+        updateBounds();
         pathing.setY(yPos + pathingY);
     }
 
@@ -101,6 +107,10 @@ public abstract class Entity {
 
     public void setBounds(Rectangle bounds) {
         this.bounds = bounds;
+    }
+    
+    public void updateBounds(){
+        bounds.setLocation(xPos, yPos);
     }
 
     public Rectangle getPathing() {
@@ -140,5 +150,15 @@ public abstract class Entity {
             return false;
         }
     }
+
+    public String getCurrentMoveStrat() {
+        return currentMoveStrat;
+    }
+
+    public void setCurrentMoveStrat(String currentMoveStrat) {
+        this.currentMoveStrat = currentMoveStrat;
+    }
+    
+    
 
 }

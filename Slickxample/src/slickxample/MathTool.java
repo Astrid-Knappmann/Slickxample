@@ -27,9 +27,17 @@ public class MathTool {
         return angle;
     }
     
-    public static float getDistance(float xPos, float yPos) {
+    public static float getDistanceToPlayer(float xPos, float yPos) {
         float deltax = xPos - (player.getxPos() + player.texture.getWidth()/2);
         float deltay = yPos - (player.getyPos() + player.texture.getHeight()/2);
+        float distance = deltax*deltax + deltay*deltay;
+        distance = (float) Math.sqrt(distance);
+        return distance;
+    }
+    
+    public static float getDistanceBetweenEntities(Entity e1, Entity e2) {
+        float deltax = e1.getxPos() + e1.texture.getWidth()/2 - (e2.getxPos() + e2.texture.getWidth()/2);
+        float deltay = e1.getyPos() + e1.texture.getHeight()/2 - (e2.getyPos() + e2.texture.getHeight()/2);
         float distance = deltax*deltax + deltay*deltay;
         distance = (float) Math.sqrt(distance);
         return distance;

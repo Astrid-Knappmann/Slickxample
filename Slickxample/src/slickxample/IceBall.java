@@ -46,4 +46,12 @@ public class IceBall extends Projectile {
         }
 
     }
+
+    @Override
+    public void collision(Entity e) {
+        super.collision(e);
+        EnemyManager.areaDamage(e, 50, 30);
+    }
+    
+    
 }

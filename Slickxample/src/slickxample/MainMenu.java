@@ -25,6 +25,7 @@ public class MainMenu extends BasicGameState {
     private Image playerImg;
     private ArrayList<IceParticle> particleEffects;
     private Player player;
+    private PlayerHandler playerHandler;
     private ArrayList<Projectile> projectiles;
     private PlayerProjectileManager playerProjectileManager;
     private EnemyProjectileManager enemyProjectileManager;
@@ -63,6 +64,8 @@ public class MainMenu extends BasicGameState {
         enemyManager = new EnemyManager(enemies, enemyCreator);
         playerProjectileManager = new PlayerProjectileManager(enemies);
         player = new Player(300, 300, playerImg, playerProjectileManager);
+        playerHandler = new PlayerHandler(player);
+        playerHandler.init(container, game);
         enemyProjectileManager = new EnemyProjectileManager(player);
         angleCalc = new MathTool(player);
         tileM = new TileManager();
@@ -81,6 +84,7 @@ public class MainMenu extends BasicGameState {
         playerProjectileManager.render(container, game, g);
         enemyManager.render(container, game, g);
         enemyProjectileManager.render(container, game, g);
+        playerHandler.render(container, game, g);
         g.drawString(Integer.toString(count), 300, 50);
     }
 
@@ -91,7 +95,11 @@ public class MainMenu extends BasicGameState {
         playerProjectileManager.update(container, game, delta);
         enemyManager.update(container, game, delta);
         enemyProjectileManager.update(container, game, delta);
+        playerHandler.update(container, game, delta);
+        
         particleCount += 1 * delta;
+        
+        
         input = container.getInput();
         mouseX = input.getMouseX();
         mouseY = input.getMouseY();
