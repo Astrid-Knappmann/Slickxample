@@ -44,6 +44,9 @@ public class MainMenu extends BasicGameState {
     private float particleCount = 0;
     private LevelCreator lvlCreator;
     private EnemyCreator enemyCreator;
+    private LavaFlow lavaFlow;
+    private boolean paused = false;
+    private ScoreManager scoreManager;
 
     public MainMenu(int id) {
         this.id = id;
@@ -58,15 +61,17 @@ public class MainMenu extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         playerImg = new Image("res/Player.png");
+        scoreManager = new ScoreManager();
         enemies = new ArrayList<>();
         enemyCreator = new EnemyCreator();
         enemyCreator.init(container, game);
-        enemyManager = new EnemyManager(enemies, enemyCreator);
-        playerProjectileManager = new PlayerProjectileManager(enemies);
+        enemyManager = new EnemyManager(enemies, enemyCreator, scoreManager);
+        lavaFlow = new LavaFlow(-20, 600, 0, new Image("res/LavaFlow.png"));
+        playerProjectileManager = new PlayerProjectileManager(enemies, lavaFlow);
         player = new Player(300, 300, playerImg, playerProjectileManager);
         playerHandler = new PlayerHandler(player);
         playerHandler.init(container, game);
-        enemyProjectileManager = new EnemyProjectileManager(player);
+        enemyProjectileManager = new EnemyProjectileManager(player, lavaFlow);
         angleCalc = new MathTool(player);
         tileM = new TileManager();
         tileM.init(container, game);
@@ -75,6 +80,7 @@ public class MainMenu extends BasicGameState {
         level.init(container, game);
         moveRegister = new MoveRegister();
         moveRegister.init(container, game);
+
     }
 
     @Override
@@ -84,32 +90,27 @@ public class MainMenu extends BasicGameState {
         playerProjectileManager.render(container, game, g);
         enemyManager.render(container, game, g);
         enemyProjectileManager.render(container, game, g);
+        lavaFlow.render(container, game, g);
         playerHandler.render(container, game, g);
+        scoreManager.render(container, game, g);
         g.drawString(Integer.toString(count), 300, 50);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        level.update(container, game, delta);
-        player.update(container, game, delta);
-        playerProjectileManager.update(container, game, delta);
-        enemyManager.update(container, game, delta);
-        enemyProjectileManager.update(container, game, delta);
-        playerHandler.update(container, game, delta);
-        
-        particleCount += 1 * delta;
-        
-        
-        input = container.getInput();
-        mouseX = input.getMouseX();
-        mouseY = input.getMouseY();
-        if (mouseX != oldMouseX || mouseY != oldMouseY) {
-            if (particleCount > 15) {
-                playerProjectileManager.addIceParticle(new IceParticle(mouseX, mouseY, new Image("res/ice.png"), RandomTool.getRandom().nextInt(360), RandomTool.getRandom().nextFloat() / 2 - 0.25f));
-                count++;
-                particleCount = 0;
-            }
+        if (!paused) {
+            level.update(container, game, delta);
+            player.update(container, game, delta);
+            playerProjectileManager.update(container, game, delta);
+            enemyManager.update(container, game, delta);
+            enemyProjectileManager.update(container, game, delta);
+            lavaFlow.update(container, game, delta);
+            playerHandler.update(container, game, delta);
+
+            particleCount += 1 * delta;
         }
+        input = container.getInput();
+
         if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
             enemyManager.SpawnProjectile(50, 50, 0);
             enemyManager.SpawnProjectile(110, 50, 0);
@@ -118,10 +119,15 @@ public class MainMenu extends BasicGameState {
             enemyManager.SpawnProjectile(290, 50, 0);
         }
         if (input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)) {
-
+            
         }
-        oldMouseX = mouseX;
-        oldMouseY = mouseY;
-
+        
+        if(input.isKeyPressed(Input.KEY_P)||input.isKeyPressed(Input.KEY_ESCAPE)){
+            if (paused) {
+                paused = false;
+            } else {
+                paused = true;
+            }
+        }
     }
 }

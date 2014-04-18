@@ -54,7 +54,7 @@ public class PlayerHandler {
     }
 
     public void drawLeenFace(Graphics g) {
-        leenFace.draw(110, 532);
+        leenFace.draw(110, 527);
     }
     
     public static Player getPlayer(){

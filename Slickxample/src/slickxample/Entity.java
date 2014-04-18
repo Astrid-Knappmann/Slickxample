@@ -29,6 +29,7 @@ public abstract class Entity {
     float pathingY;
     MoveStrategy moveStrat;
     String currentMoveStrat;
+    float baseScore;
 
     public Entity(float xPos, float yPos) {
         this.xPos = xPos;
@@ -159,6 +160,9 @@ public abstract class Entity {
         this.currentMoveStrat = currentMoveStrat;
     }
     
+    public float getScore(){
+        return baseScore;
+    }
     
 
 }

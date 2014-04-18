@@ -15,12 +15,12 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class TileManager {
     
-    private final int waterTileId = 0;
-    private final int islandTileId = 1;
+    private final int groundId = 0;
+    private final int ground2Id = 1;
     public static final int tileSize = 32;
     public static float scrollspeed = 0.04f;
-    private Image water;
-    private Image island;
+    private Image ground;
+    private Image ground2;
     public static final int tileMover = -64;
 
     
@@ -30,28 +30,28 @@ public class TileManager {
     }
     
     public void init(GameContainer container, StateBasedGame game) throws SlickException{
-        water = new Image("res/water.png");
-        island = new Image("res/island.png");
+        ground = new Image("res/Ground.png");
+        ground2 = new Image("res/Ground2.png");
     }
 
     public static float getScrollspeed() {
         return scrollspeed;
     }
 
-    public Image getWater() {
-        return water;
+    public Image getGround() {
+        return ground;
     }
 
-    public Image getIsland() {
-        return island;
+    public Image getGround2() {
+        return ground2;
     }
 
-    public int getWaterTileId() {
-        return waterTileId;
+    public int getGroundId() {
+        return groundId;
     }
 
-    public int getIslandTileId() {
-        return islandTileId;
+    public int getGround2Id() {
+        return ground2Id;
     }
 
     public int getTileSize() {

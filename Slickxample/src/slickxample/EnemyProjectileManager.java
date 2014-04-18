@@ -24,10 +24,12 @@ public class EnemyProjectileManager {
     private Player player;
     private static ArrayList<Projectile> projectiles;
     private Iterator<Projectile> projectileIterator;
+    private LavaFlow lavaFlow;
 
-    public EnemyProjectileManager(Player player) {
+    public EnemyProjectileManager(Player player, LavaFlow lavaFlow) {
         this.player = player;
-        projectiles = new ArrayList<Projectile>();
+        projectiles = new ArrayList<>();
+        this.lavaFlow = lavaFlow;
     }
 
     public static void SpawnProjectile(float xPos, float yPos, float angle, float angle2, int id) {
@@ -64,11 +66,16 @@ public class EnemyProjectileManager {
                 MainMenu.count--;
             }
         }
+        lavaCollision();
     }
 
     public void checkCollision(Projectile p) {
         if (p.checkCollision(player.getBounds())) {
             p.collision(player);
         }
+    }
+    
+    public void lavaCollision(){
+        checkCollision(lavaFlow);
     }
 }

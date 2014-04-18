@@ -23,10 +23,10 @@ public class LevelRenderer {
     int[] i = null;
     private int[][] defaultMap;
     private float scroll;
-    private Image water;
-    private int waterId;
-    private Image island;
-    private int islandId;
+    private Image ground;
+    private int groundId;
+    private Image ground2;
+    private int ground2Id;
     private int tileSize;
     private float scrollspeed;
     private float mapPos = 0;
@@ -44,10 +44,10 @@ public class LevelRenderer {
     }
 
     public void init(GameContainer container, StateBasedGame game) {
-        island = t.getIsland();
-        water = t.getWater();
-        waterId = t.getWaterTileId();
-        islandId = t.getIslandTileId();
+        ground2 = t.getGround2();
+        ground = t.getGround();
+        groundId = t.getGroundId();
+        ground2Id = t.getGround2Id();
         tileSize = t.getTileSize();
         tileMover = t.getTileMover();
         scrollspeed = t.getScrollspeed();
@@ -64,11 +64,11 @@ public class LevelRenderer {
         for (int y = 0; y < map.size(); y++) {
             if (y * tileSize + scroll - extraRows * tileSize < container.getHeight() - tileMover && y * tileSize + scroll - extraRows * tileSize > 0 + tileMover) {
                 for (int x = 0; x < map.get(y).length; x++) {
-                    if (map.get(y)[x] == waterId) {
-                        water.draw(x * tileSize, y * tileSize + scroll + tileMover - extraRows * tileSize);
+                    if (map.get(y)[x] == groundId) {
+                        ground.draw(x * tileSize, y * tileSize + scroll + tileMover - extraRows * tileSize);
                     } else {
-                        if (map.get(y)[x] == islandId) {
-                            island.draw(x * tileSize, y * tileSize + scroll + tileMover - extraRows * tileSize);
+                        if (map.get(y)[x] == ground2Id) {
+                            ground2.draw(x * tileSize, y * tileSize + scroll + tileMover - extraRows * tileSize);
                         }
                     }
                 }

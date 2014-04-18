@@ -27,12 +27,14 @@ public class EnemyManager {
     private static Iterator<Entity> enemyiterator;
     private EnemyCreator creator;
     private ComparatorY comparatorY;
+    private ScoreManager scoreManager;
 
-    public EnemyManager(ArrayList<Entity> enemies, EnemyCreator creator) throws SlickException {
+    public EnemyManager(ArrayList<Entity> enemies, EnemyCreator creator, ScoreManager scoreManager) throws SlickException {
         this.enemies = enemies;
         this.creator = creator;
         testBox = new Image("res/Zombie.png");
         comparatorY = new ComparatorY();
+        this.scoreManager = scoreManager;
     }
 
     public void spawnEnemies(int lvl) {
@@ -70,6 +72,7 @@ public class EnemyManager {
             e.setyPos(e.getyPos() + TileManager.getScrollspeed() * delta);
             e.update(container, game, delta);
             if (e.getLife() <= 0) {
+                scoreManager.addPoints(e.getScore());
                 enemyiterator.remove();
             }
         }

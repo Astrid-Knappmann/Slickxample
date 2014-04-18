@@ -23,7 +23,7 @@ public class Zombie extends Entity {
 
     private float angle;
     private float damage = 1.5f;
-    private Player p;
+    private Player player;
     private float attackReload = 0;
 
     public Zombie(float xPos, float yPos) {
@@ -39,7 +39,8 @@ public class Zombie extends Entity {
         super.pathingX = 4;
         super.pathingY = 25;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 16, 11);
-        p = PlayerHandler.getPlayer();
+        player = PlayerHandler.getPlayer();
+        super.baseScore = 10;
         moveStrat = MoveRegister.getFollow(this);
     }
 
@@ -65,7 +66,7 @@ public class Zombie extends Entity {
     }
     
     public void attack(){        
-        p.setLife(p.getLife() - damage);
+        player.setLife(player.getLife() - damage);
         attackReload = 100;
     }
     

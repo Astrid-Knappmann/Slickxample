@@ -28,6 +28,7 @@ public class PlayerProjectileManager {
     private Iterator<Projectile> playeriterator;
     private Iterator<IceParticle> iceParticleiterator;
     private Iterator<Entity> enemyiterator;
+    private LavaFlow lavaFlow;
     private final Image lavaSpray;
     private final Image lightning;
     private Input input;
@@ -43,7 +44,7 @@ public class PlayerProjectileManager {
     public static float LIGHTNING_MIDDLEX;
     public static final float LIGHTNING_RELOAD = 150;
 
-    public PlayerProjectileManager(ArrayList<Entity> enemies) throws SlickException {
+    public PlayerProjectileManager(ArrayList<Entity> enemies, LavaFlow lavaFlow) throws SlickException {
         this.enemies = enemies;
         projectiles = new ArrayList<>();
         iceParticles = new ArrayList<>();
@@ -54,6 +55,7 @@ public class PlayerProjectileManager {
         LAVASPRAY_MIDDLEX = lavaSpray.getWidth() / 2 + 7;
         ICEBALL_MIDDLEY = iceBall.getHeight() / 2;
         LIGHTNING_MIDDLEX = lightning.getWidth() / 2;
+        this.lavaFlow = lavaFlow;
     }
 
     public void SpawnProjectile(float xPos, float yPos, float angle, int id)  {
@@ -101,6 +103,7 @@ public class PlayerProjectileManager {
                 MainMenu.count--;
             }
         }
+        lavaCollision();
         
         
 
@@ -121,6 +124,10 @@ public class PlayerProjectileManager {
 
     public void addIceParticle(IceParticle i) {
         iceParticles.add(i);
+    }
+    
+    public void lavaCollision(){
+        checkCollision(lavaFlow);
     }
     
     public void checkCollision(Projectile p){

@@ -38,6 +38,7 @@ public class SkeletonMage extends Entity {
         super.pathingX = 7;
         super.pathingY = 36;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 16, 9);
+        super.baseScore = 15;
         moveStrat = MoveRegister.getCaster1(this);
     }
 
