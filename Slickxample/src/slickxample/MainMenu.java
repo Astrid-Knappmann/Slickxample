@@ -76,7 +76,7 @@ public class MainMenu extends BasicGameState {
         playerHandler = new PlayerHandler(player);
         playerHandler.init(container, game);
         enemyProjectileManager = new EnemyProjectileManager(player, lavaFlow);
-        angleCalc = new MathTool(player);
+        angleCalc = new MathTool(player, lavaFlow);
         tileM = new TileManager();
         tileM.init(container, game);
         lvlCreator = new LevelCreator();

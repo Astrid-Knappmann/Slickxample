@@ -58,6 +58,11 @@ public class SkeletonMage extends Entity {
             moveCounter = 1;
             recentlyFled = true;
         }
+        if (MathTool.getDistanceToLava(this)<125) {
+            moveStrat = MoveRegister.getFleeLava(this);
+            moveCounter = 1;
+            
+        }
         if (moveCounter >= 3800) {
             moveCounter = 0;
 

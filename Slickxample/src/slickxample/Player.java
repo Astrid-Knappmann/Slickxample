@@ -55,7 +55,7 @@ public class Player extends Entity {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         super.render(container, game, g);
-        if(slowed){
+        if (slowed) {
             slowedTint.draw(xPos, yPos);
         }
     }
@@ -136,6 +136,9 @@ public class Player extends Entity {
         setyPos(300);
         setLife(500);
         reloadTime = 400;
+        slowAmount = 0;
+        slowed = false;
+        slowDuration = 0;
     }
 
 }

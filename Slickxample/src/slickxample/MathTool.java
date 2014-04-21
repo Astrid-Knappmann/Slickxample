@@ -15,9 +15,11 @@ import org.newdawn.slick.Input;
 public class MathTool {
     
     private static Player player;
+    private static LavaFlow lavaFlow;
 
-    public MathTool(Player player) {
+    public MathTool(Player player, LavaFlow lavaFlow) {
         this.player = player;
+        this.lavaFlow = lavaFlow;
     }
     
     public static float getAngle(Input input, float projectileid) {
@@ -40,6 +42,11 @@ public class MathTool {
         float deltay = e1.getyPos() + e1.texture.getHeight()/2 - (e2.getyPos() + e2.texture.getHeight()/2);
         float distance = deltax*deltax + deltay*deltay;
         distance = (float) Math.sqrt(distance);
+        return distance;
+    }
+    
+    public static float getDistanceToLava(Entity e) {
+        float distance = lavaFlow.getYPos() - (e.getyPos() + e.getTexture().getHeight()/2);
         return distance;
     }
     

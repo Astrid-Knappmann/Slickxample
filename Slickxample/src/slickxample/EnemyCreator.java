@@ -68,7 +68,7 @@ public class EnemyCreator {
 
     private ArrayList<Entity> lvl1_1(float difficulty) {
         ArrayList<Entity> list = new ArrayList<>();
-        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
+        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100);
         for (int y = 0; y < 3; y++) {
             list.add(new Zombie(xPosMover + getXPos(y*3), getYPos(), difficulty));
         }
@@ -77,7 +77,7 @@ public class EnemyCreator {
 
     private ArrayList<Entity> lvl1_2(float difficulty) {
         ArrayList<Entity> list = new ArrayList<>();
-        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
+        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100);
         for (int y = 0; y < 8; y++) {
             list.add(new Zombie(xPosMover + getXPos(y), getYPos(), difficulty));
         }
@@ -86,7 +86,7 @@ public class EnemyCreator {
     
     private ArrayList<Entity> lvl1_3(float difficulty) {
         ArrayList<Entity> list = new ArrayList<>();
-        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100) + TileManager.tileSize;
+        int xPosMover = RandomTool.getRandom().nextInt(screenWidth - 100);
         for (int y = 0; y < 3; y++) {
             list.add(new SkeletonMage(xPosMover + getXPos(y * 3), getYPos(), difficulty));
         }

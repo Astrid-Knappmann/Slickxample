@@ -20,6 +20,7 @@ public class MoveRegister {
     public static final String FLEE_ID = "flee";
     public static final String IDLE_ID = "idle";
     public static final String FOLLOW_ID = "follow";
+    public static final String FLEELAVA_ID = "fleeLava";
 
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
 
@@ -48,5 +49,10 @@ public class MoveRegister {
     public static MoveStrategy getFollow(Entity e) {
         e.setCurrentMoveStrat(FOLLOW_ID);
         return new MoveFollow();
+    }
+    
+     public static MoveStrategy getFleeLava(Entity e) {
+        e.setCurrentMoveStrat(FLEELAVA_ID);
+        return new MoveFleeLava();
     }
 }
