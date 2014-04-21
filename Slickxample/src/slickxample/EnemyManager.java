@@ -23,7 +23,6 @@ import org.newdawn.slick.state.StateBasedGame;
 public class EnemyManager {
 
     private static ArrayList<Entity> enemies;
-    private Image testBox;
     private static Iterator<Entity> enemyiterator;
     private EnemyCreator creator;
     private ComparatorY comparatorY;
@@ -32,7 +31,6 @@ public class EnemyManager {
     public EnemyManager(ArrayList<Entity> enemies, EnemyCreator creator, ScoreManager scoreManager) throws SlickException {
         this.enemies = enemies;
         this.creator = creator;
-        testBox = new Image("res/Zombie.png");
         comparatorY = new ComparatorY();
         this.scoreManager = scoreManager;
     }
@@ -46,13 +44,6 @@ public class EnemyManager {
         }
     }
 
-    public void SpawnProjectile(float xPos, float yPos, int id) {
-        switch (id) {
-            case 0:
-                enemies.add(new Zombie(xPos, yPos));
-                break;
-        }
-    }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
         Collections.sort(enemies, comparatorY);
@@ -101,4 +92,14 @@ public class EnemyManager {
             }
         }
     }
+
+    public void reset(ArrayList<Entity> enemies){
+        setEnemies(enemies);
+    }
+    
+    public static void setEnemies(ArrayList<Entity> enemies) {
+        EnemyManager.enemies = enemies;
+    }
+    
+    
 }

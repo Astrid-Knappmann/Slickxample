@@ -47,6 +47,10 @@ public class MainMenu extends BasicGameState {
     private LavaFlow lavaFlow;
     private boolean paused = false;
     private ScoreManager scoreManager;
+    private Image deathTint;
+    private float deathDelay = 100;
+    private boolean showDeath = false;
+    private boolean resetReady = false;
 
     public MainMenu(int id) {
         this.id = id;
@@ -68,7 +72,7 @@ public class MainMenu extends BasicGameState {
         enemyManager = new EnemyManager(enemies, enemyCreator, scoreManager);
         lavaFlow = new LavaFlow(-20, 600, 0, new Image("res/LavaFlow.png"));
         playerProjectileManager = new PlayerProjectileManager(enemies, lavaFlow);
-        player = new Player(300, 300, playerImg, playerProjectileManager);
+        player = new Player(400, 300, playerImg, playerProjectileManager);
         playerHandler = new PlayerHandler(player);
         playerHandler.init(container, game);
         enemyProjectileManager = new EnemyProjectileManager(player, lavaFlow);
@@ -80,7 +84,8 @@ public class MainMenu extends BasicGameState {
         level.init(container, game);
         moveRegister = new MoveRegister();
         moveRegister.init(container, game);
-
+        deathTint = new Image("res/BlackBox.png");
+        deathTint.setAlpha(0.65f);
     }
 
     @Override
@@ -94,11 +99,31 @@ public class MainMenu extends BasicGameState {
         playerHandler.render(container, game, g);
         scoreManager.render(container, game, g);
         g.drawString(Integer.toString(count), 300, 50);
+        if (paused) {
+            deathTint.draw(-1, -1);
+            g.setColor(Color.white);
+            g.drawString("Paused", 375, 250);
+        }
+
+        if (showDeath) {
+            deathTint.draw(-1, -1);
+            g.setColor(Color.red);
+            g.drawString("You are dead", 335, 250);
+            g.setColor(Color.white);
+            g.drawString("Final score: " + (int) scoreManager.getCurrentScore(), 325, 300);
+            if(resetReady){
+                g.drawString("Press ", 300, 350);
+                g.setColor(Color.red);
+                g.drawString("space", 350, 350);
+                g.setColor(Color.white);
+                g.drawString("to try again", 400, 350);
+            }
+        }
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        if (!paused) {
+        if (!paused && !playerHandler.isDead()) {
             level.update(container, game, delta);
             player.update(container, game, delta);
             playerProjectileManager.update(container, game, delta);
@@ -109,25 +134,65 @@ public class MainMenu extends BasicGameState {
 
             particleCount += 1 * delta;
         }
+        
         input = container.getInput();
 
-        if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
-            enemyManager.SpawnProjectile(50, 50, 0);
-            enemyManager.SpawnProjectile(110, 50, 0);
-            enemyManager.SpawnProjectile(170, 50, 0);
-            enemyManager.SpawnProjectile(230, 50, 0);
-            enemyManager.SpawnProjectile(290, 50, 0);
-        }
-        if (input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)) {
-            
-        }
-        
-        if(input.isKeyPressed(Input.KEY_P)||input.isKeyPressed(Input.KEY_ESCAPE)){
-            if (paused) {
-                paused = false;
+        if (playerHandler.isDead()) {
+            if (!showDeath) {
+                deathDelay -= 0.1f * delta;
+                if (deathDelay <= 0) {
+                    showDeath = true;
+                    deathDelay = 100;
+                }
             } else {
-                paused = true;
+                if (!resetReady) {
+                    deathDelay -= 0.1f * delta;
+                    if (deathDelay <= 0) {
+                        resetReady = true;
+                        deathDelay = 100;
+                        input.clearKeyPressedRecord();
+                    }
+                }
             }
         }
+
+           
+        if(resetReady){
+            if (input.isKeyPressed(Input.KEY_SPACE)) {
+                reset();
+        }
+        }
+        
+        if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
+
+        }
+        if (input.isMousePressed(Input.MOUSE_MIDDLE_BUTTON)) {
+            reset();
+        }
+
+        if (input.isKeyPressed(Input.KEY_P) || input.isKeyPressed(Input.KEY_ESCAPE)) {
+            if (!playerHandler.isDead()) {
+                if (paused) {
+                    paused = false;
+                } else {
+                    paused = true;
+                }
+            }
+        }
+    }
+
+    public void reset() {
+        enemies = new ArrayList<>();
+        enemyManager.reset(enemies);
+        enemyProjectileManager.reset();
+        lavaFlow.reset();
+        player.reset();
+        playerHandler.reset();
+        playerProjectileManager.reset(enemies);
+        scoreManager.reset();
+        level.reset();
+        showDeath = false;
+        resetReady = false;
+        count = 0;
     }
 }

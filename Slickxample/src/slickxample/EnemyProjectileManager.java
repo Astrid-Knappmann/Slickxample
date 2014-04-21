@@ -78,4 +78,8 @@ public class EnemyProjectileManager {
     public void lavaCollision(){
         checkCollision(lavaFlow);
     }
+    
+    public void reset(){
+        projectiles = new ArrayList<>();
+    }
 }

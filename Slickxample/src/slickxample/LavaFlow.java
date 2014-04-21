@@ -26,6 +26,7 @@ public class LavaFlow extends Projectile{
         super(xPos, yPos, angle, texture);
         super.damage = 0.04f;
         super.lifeTime = 1;
+        super.speed = 0.02f;
     }
     
     public void init(GameContainer container, StateBasedGame game) throws SlickException{        
@@ -41,7 +42,7 @@ public class LavaFlow extends Projectile{
     
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta){
-        yPos -= (0.01f - TileManager.getScrollspeed()) * delta;
+        yPos -= (speed - TileManager.getScrollspeed()) * delta;
         bounds.setLocation(xPos, yPos);
         
     }
@@ -49,6 +50,11 @@ public class LavaFlow extends Projectile{
     @Override
     public void collision(Entity e) {
         e.setLife(e.getLife() - damage);
+    }
+    
+    public void reset(){
+        super.setXPos(-20);
+        super.setYPos(600);
     }
         
 }

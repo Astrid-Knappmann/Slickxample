@@ -4,6 +4,7 @@
  */
 package slickxample;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
@@ -105,7 +106,12 @@ public class Player extends Entity {
         bounds.setLocation(xPos + 3, yPos + 3);
     }
     
-    
+    public void reset(){
+        setxPos(400);
+        setyPos(300);
+        setLife(100);
+        reloadTime = 400;
+    }
     
     
 

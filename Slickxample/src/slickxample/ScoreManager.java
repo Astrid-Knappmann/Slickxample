@@ -22,6 +22,7 @@ public class ScoreManager {
     public void render(GameContainer container, StateBasedGame game, Graphics g){
         g.setColor(Color.white);
         g.drawString("Score: " + (int)currentScore, 25, 50);
+        
     }
     
     public void update(GameContainer container, StateBasedGame game, int delta){
@@ -30,6 +31,14 @@ public class ScoreManager {
     
     public void addPoints(float points){
         currentScore += points;
+    }
+    
+    public float getCurrentScore(){
+        return currentScore;
+    }
+    
+    public void reset(){
+        currentScore = 0;
     }
     
 }

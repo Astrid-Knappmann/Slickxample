@@ -20,6 +20,7 @@ public class PlayerHandler {
 
     public static Player player;
     private Image leenFace;
+    private boolean dead = false;
 
     public PlayerHandler(Player player) {
         this.player = player;
@@ -35,7 +36,9 @@ public class PlayerHandler {
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) {
-
+        if(player.getLife() <= 0){
+            dead = true;
+        }
     }
 
     public void drawHealthBars(Graphics g) {
@@ -60,5 +63,19 @@ public class PlayerHandler {
     public static Player getPlayer(){
         return player;
     }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+    
+    public void reset(){
+        dead = false;
+    }
+    
+    
 
 }

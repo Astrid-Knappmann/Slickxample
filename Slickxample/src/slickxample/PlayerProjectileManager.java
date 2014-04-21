@@ -21,9 +21,9 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class PlayerProjectileManager {
 
-    private final ArrayList<Projectile> projectiles;
-    private final ArrayList<IceParticle> iceParticles;
-    private final ArrayList<Entity> enemies;
+    private  ArrayList<Projectile> projectiles;
+    private  ArrayList<IceParticle> iceParticles;
+    private  ArrayList<Entity> enemies;
     private final Image iceBall;
     private Iterator<Projectile> playeriterator;
     private Iterator<IceParticle> iceParticleiterator;
@@ -138,5 +138,11 @@ public class PlayerProjectileManager {
                 p.collision(e);
             }
         }
+    }
+    
+    public void reset(ArrayList<Entity> enemies){
+        this.enemies = enemies;
+        projectiles = new ArrayList<>();
+        iceParticles = new ArrayList<>();
     }
 }

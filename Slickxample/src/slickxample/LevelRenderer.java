@@ -27,6 +27,8 @@ public class LevelRenderer {
     private int groundId;
     private Image ground2;
     private int ground2Id;
+    private Image ground3;
+    private int ground3Id;
     private int tileSize;
     private float scrollspeed;
     private float mapPos = 0;
@@ -48,6 +50,8 @@ public class LevelRenderer {
         ground = t.getGround();
         groundId = t.getGroundId();
         ground2Id = t.getGround2Id();
+        ground3 = t.getGround3();
+        ground3Id = t.getGround3Id();
         tileSize = t.getTileSize();
         tileMover = t.getTileMover();
         scrollspeed = t.getScrollspeed();
@@ -69,6 +73,10 @@ public class LevelRenderer {
                     } else {
                         if (map.get(y)[x] == ground2Id) {
                             ground2.draw(x * tileSize, y * tileSize + scroll + tileMover - extraRows * tileSize);
+                        } else {
+                            if (map.get(y)[x] == ground3Id) {
+                                ground3.draw(x * tileSize, y * tileSize + scroll + tileMover - extraRows * tileSize);
+                            }
                         }
                     }
                 }
@@ -87,6 +95,7 @@ public class LevelRenderer {
                     map.addFirst(i);
                     mapPos += 32;
                     extraRows++;
+                    System.out.println(mapPos);
                 }
             }
             scroll = 0;
@@ -100,6 +109,16 @@ public class LevelRenderer {
 //            scroll = 0;
         }
 
+    }
+
+    public void reset() {
+        map = new LinkedList<>();
+        for (int[] i : defaultMap) {
+            map.add(i);
+        }
+        extraRows = 0;
+        mapPos = 0;
+        scroll = 0;
     }
 
 //    private void changeMap() {
