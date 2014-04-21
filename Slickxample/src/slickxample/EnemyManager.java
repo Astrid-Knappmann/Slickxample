@@ -35,8 +35,8 @@ public class EnemyManager {
         this.scoreManager = scoreManager;
     }
 
-    public void spawnEnemies(int lvl) {
-        ArrayList<Entity> list = creator.spawnEnemies(lvl);
+    public void spawnEnemies(int lvl, float difficulty) {
+        ArrayList<Entity> list = creator.spawnEnemies(lvl, difficulty);
         if (!(list == null)) {
             for (Entity e : list) {
                 enemies.add(e);

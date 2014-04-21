@@ -24,8 +24,9 @@ public class SkeletonMage extends Entity {
     private float fireballReload = 0;
     private int fireballsPerCast = 1;
     private int fireballCounter = 0;
+    private float difficulty;
 
-    public SkeletonMage(float xPos, float yPos) {
+    public SkeletonMage(float xPos, float yPos, float difficulty) {
         super(xPos, yPos);
         try {
             super.texture = new Image("res/SkeletonMage.png");
@@ -33,12 +34,14 @@ public class SkeletonMage extends Entity {
             Logger.getLogger(SkeletonMage.class.getName()).log(Level.SEVERE, null, ex);
         }
         super.bounds = new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
-        setMaxLife(40 + RandomTool.getRandom().nextInt(51));
+        this.difficulty = difficulty;
+        setMaxLife(40 + RandomTool.getRandom().nextInt(51) + (difficulty * (2 + RandomTool.getRandom().nextInt(4))));
         super.speed = 0.08f;
         super.pathingX = 7;
         super.pathingY = 36;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 16, 9);
-        super.baseScore = 15;
+        super.baseScore = 15 * difficulty;
+        fireballsPerCast = 1 + (int)(difficulty / 10);
         moveStrat = MoveRegister.getCaster1(this);
     }
 
@@ -67,7 +70,7 @@ public class SkeletonMage extends Entity {
                 }
                 fireballReload -= 0.5f * delta;
                 if (fireballReload <= 0) {
-                    shootFireball();
+                    shootFireball(difficulty);
                 }
 
             } else {
@@ -86,11 +89,11 @@ public class SkeletonMage extends Entity {
         moveStrat.move(this, delta);
     }
 
-    public void shootFireball() {
+    public void shootFireball(float difficulty) {
         int accuracy = (int) MathTool.getDistanceToPlayer(xPos, yPos) / 2;
         float x = (RandomTool.getRandom().nextInt(accuracy) - (accuracy - 1) / 2);
         float y = (RandomTool.getRandom().nextInt(accuracy) - (accuracy - 1) / 2);
-        EnemyProjectileManager.SpawnProjectile(xPos, yPos, MathTool.getAngleToPlayer(xPos + x, yPos + y), MathTool.getAngleToPlayerInvY(xPos + x, yPos + y), 0);
+        EnemyProjectileManager.SpawnProjectile(xPos, yPos, MathTool.getAngleToPlayer(xPos + x, yPos + y), MathTool.getAngleToPlayerInvY(xPos + x, yPos + y), 0, difficulty);
         fireballCounter ++;
         if(fireballCounter < fireballsPerCast){
             fireballReload = 40;

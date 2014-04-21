@@ -14,11 +14,11 @@ import org.newdawn.slick.Image;
  */
 public class WeakFireball extends Projectile{
 
-    public WeakFireball(float xPos, float yPos, float angle, float angleInvX, Image texture) {
+    public WeakFireball(float xPos, float yPos, float angle, float angleInvX, Image texture, float difficulty) {
         super(xPos, yPos, angle, texture);
-        super.damage = 10;
+        super.damage = 10 * (difficulty/10 + 1);
         super.texture.setCenterOfRotation(7, 7);
-        super.speed = 0.2f;
+        super.speed = 0.2f + (difficulty / 300);
         super.texture.setRotation((float) Math.toDegrees(angleInvX));
     }
     

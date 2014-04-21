@@ -43,6 +43,14 @@ public class MathTool {
         return distance;
     }
     
+    public static float getDistanceBetweenPoints(float x1, float y1, float x2, float y2) {
+        float deltax = x1 - x2;
+        float deltay = y1 - y2;
+        float distance = deltax*deltax + deltay*deltay;
+        distance = (float) Math.sqrt(distance);
+        return distance;
+    }
+    
     public static float getAngleInvY(Input input, float projectileid) {
         float deltax = input.getMouseX() - projectileid - (player.getxPos());
         float deltay = -input.getMouseY() - projectileid + (player.getyPos());

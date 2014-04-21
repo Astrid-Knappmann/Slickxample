@@ -32,11 +32,11 @@ public class EnemyProjectileManager {
         this.lavaFlow = lavaFlow;
     }
 
-    public static void SpawnProjectile(float xPos, float yPos, float angle, float angle2, int id) {
+    public static void SpawnProjectile(float xPos, float yPos, float angle, float angle2, int id, float difficulty) {
         try {
             switch (id) {
                 case 0:
-                    projectiles.add(new WeakFireball(xPos, yPos, angle, angle2, new Image("res/WeakFireball.png")));
+                    projectiles.add(new WeakFireball(xPos, yPos, angle, angle2, new Image("res/WeakFireball.png"), difficulty));
                 break;
 
             }

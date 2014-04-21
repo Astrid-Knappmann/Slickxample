@@ -38,6 +38,7 @@ public class LevelRenderer {
     private int extraRows;
     private EnemyManager enemyManager;
     private int currentLvl;
+    private float difficulty = 1;
 
     public LevelRenderer(TileManager t, LevelCreator lvlCreator, EnemyManager enemyManager) {
         this.lvlCreator = lvlCreator;
@@ -95,12 +96,13 @@ public class LevelRenderer {
                     map.addFirst(i);
                     mapPos += 32;
                     extraRows++;
-                    System.out.println(mapPos);
                 }
             }
             scroll = 0;
             extraRows--;
-            enemyManager.spawnEnemies(currentLvl);
+            difficulty += 0.1f;
+            enemyManager.spawnEnemies(currentLvl, difficulty);
+            System.out.println(difficulty);
         }
 
         if (scroll <= tileSize * -1) {
@@ -119,6 +121,7 @@ public class LevelRenderer {
         extraRows = 0;
         mapPos = 0;
         scroll = 0;
+        difficulty = 1;
     }
 
 //    private void changeMap() {

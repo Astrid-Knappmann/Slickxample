@@ -7,6 +7,7 @@ package slickxample;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -24,32 +25,50 @@ public class Player extends Entity {
 
     private PlayerProjectileManager projectiles;
     private Input input;
+    private Image slowedTint;
     private float reloadTime;
     private final float doubleDirectionMultiplier = 0.707114f;
     private float originalSpeed;
+    private boolean slowed = false;
+    private float slowDuration;
+    private float slowAmount = 0;
 
     public Player(float xPos, float yPos, Image texture, PlayerProjectileManager projectiles) {
         super(xPos, yPos);
         try {
             super.texture = new Image("res/Player.png");
+            slowedTint = new Image("res/PlayerSlowed.png");
         } catch (SlickException ex) {
             Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
         }
         super.bounds = new Rectangle(xPos + 3, yPos + 3, texture.getWidth() - 6, texture.getHeight() - 6);
         this.projectiles = projectiles;
+        slowedTint.setAlpha(0.5f);
         super.speed = 0.1f;
         super.pathingX = 2;
         super.pathingY = 10;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 8, 10);
         originalSpeed = speed;
-        setMaxLife(100);
+        setMaxLife(500);
     }
 
-//    public void render(GameContainer container, StateBasedGame game, Graphics g) {
-//        super.render(container, game, g);
-//    }
+    @Override
+    public void render(GameContainer container, StateBasedGame game, Graphics g) {
+        super.render(container, game, g);
+        if(slowed){
+            slowedTint.draw(xPos, yPos);
+        }
+    }
+
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        if (slowed) {
+            slowDuration -= 0.5f;
+            if (slowDuration <= 0) {
+                slowAmount = 0;
+                slowed = false;
+            }
+        }
         reloadTime -= 0.5 * delta;
         TileManager.setScrollspeed(0);
         reactToInput(container, delta);
@@ -59,9 +78,9 @@ public class Player extends Entity {
     private void reactToInput(GameContainer container, int delta) {
         input = container.getInput();
         if ((input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_W) && input.isKeyDown(Input.KEY_A)) && (!(input.isKeyDown(Input.KEY_S) && input.isKeyDown(Input.KEY_W)) && (!(input.isKeyDown(Input.KEY_A) && input.isKeyDown(Input.KEY_D))))) {
-            speed = doubleDirectionMultiplier * originalSpeed;
+            speed = doubleDirectionMultiplier * originalSpeed * (1 - slowAmount);
         } else {
-            speed = originalSpeed;
+            speed = originalSpeed * (1 - slowAmount);
 
         }
         if (input.isKeyDown(Input.KEY_S)) {
@@ -84,7 +103,7 @@ public class Player extends Entity {
                 reloadTime = PlayerProjectileManager.ICEBALL_RELOAD;
             }
         } else {
-            if (input.isKeyDown(Input.KEY_E)) {
+            if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
                 if (reloadTime <= 0) {
                     projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LIGHTNING_MIDDLEX), 2);
                     reloadTime = PlayerProjectileManager.LIGHTNING_RELOAD;
@@ -105,14 +124,18 @@ public class Player extends Entity {
     public void updateBounds() {
         bounds.setLocation(xPos + 3, yPos + 3);
     }
-    
-    public void reset(){
+
+    public void slow(float amount, float duration) {
+        slowed = true;
+        slowAmount = amount;
+        slowDuration = duration;
+    }
+
+    public void reset() {
         setxPos(400);
         setyPos(300);
-        setLife(100);
+        setLife(500);
         reloadTime = 400;
     }
-    
-    
 
 }

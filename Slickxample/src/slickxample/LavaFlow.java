@@ -24,9 +24,9 @@ public class LavaFlow extends Projectile{
 
     public LavaFlow(float xPos, float yPos, float angle, Image texture) {
         super(xPos, yPos, angle, texture);
-        super.damage = 0.04f;
+        super.damage = 0.2f;
         super.lifeTime = 1;
-        super.speed = 0.02f;
+        super.speed = 0.04f;
     }
     
     public void init(GameContainer container, StateBasedGame game) throws SlickException{        

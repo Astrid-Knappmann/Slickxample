@@ -22,11 +22,14 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Zombie extends Entity {
 
     private float angle;
-    private float damage = 1.5f;
+    private float damage;
     private Player player;
     private float attackReload = 0;
+    private float difficulty;
+    private float slowAmount;
+    private float slowDuration = 750;
 
-    public Zombie(float xPos, float yPos) {
+    public Zombie(float xPos, float yPos, float difficulty) {
         super(xPos, yPos);
         try {
             super.texture = new Image("res/Zombie.png");
@@ -34,13 +37,16 @@ public class Zombie extends Entity {
             Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         }
         super.bounds = new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
-        setMaxLife(100 + RandomTool.getRandom().nextInt(76));
+        this.difficulty = difficulty;
         super.speed = 0.08f;
         super.pathingX = 4;
         super.pathingY = 25;
         super.pathing = new Rectangle(xPos + pathingX, yPos + pathingY, 16, 11);
         player = PlayerHandler.getPlayer();
-        super.baseScore = 10;
+        super.baseScore = 10 * difficulty;
+        damage = 1.5f * (difficulty/10 + 1);
+        setMaxLife(100 + RandomTool.getRandom().nextInt(76) + (difficulty * (5 + RandomTool.getRandom().nextInt(6))));
+        slowAmount = 0.25f + (difficulty/100) ;
         moveStrat = MoveRegister.getFollow(this);
     }
 
@@ -67,7 +73,13 @@ public class Zombie extends Entity {
     
     public void attack(){        
         player.setLife(player.getLife() - damage);
+        player.slow(slowAmount, slowDuration);
         attackReload = 100;
+    }
+
+    @Override
+    public void enforceBorders(GameContainer container) {
+        
     }
     
     
