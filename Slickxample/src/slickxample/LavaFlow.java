@@ -20,11 +20,12 @@ import org.newdawn.slick.state.StateBasedGame;
 public class LavaFlow extends Projectile{
     
 
+    private int delta;
     
 
     public LavaFlow(float xPos, float yPos, float angle, Image texture) {
         super(xPos, yPos, angle, texture);
-        super.damage = 0.2f;
+        super.damage = 0.25f;
         super.lifeTime = 1;
         super.speed = 0.04f;
     }
@@ -44,12 +45,12 @@ public class LavaFlow extends Projectile{
     public void update(GameContainer container, StateBasedGame game, int delta){
         yPos -= (speed - TileManager.getScrollspeed()) * delta;
         bounds.setLocation(xPos, yPos);
-        
+        this.delta = delta;
     }
 
     @Override
     public void collision(Entity e) {
-        e.setLife(e.getLife() - damage);
+        e.setLife(e.getLife() - damage * delta);
     }
     
     public void reset(){

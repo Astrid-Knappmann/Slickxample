@@ -63,13 +63,15 @@ public class Player extends Entity {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
         if (slowed) {
-            slowDuration -= 0.5f;
+            slowDuration -= 0.5f* delta;
             if (slowDuration <= 0) {
                 slowAmount = 0;
                 slowed = false;
             }
         }
-        reloadTime -= 0.5 * delta;
+        if(reloadTime >=-9){
+        reloadTime -= 0.5f * delta;
+        }
         TileManager.setScrollspeed(0);
         reactToInput(container, delta);
         super.update(container, game, delta);
@@ -110,9 +112,11 @@ public class Player extends Entity {
                 }
             } else {
                 if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                    if (reloadTime <= 0) {
+                    System.out.println(reloadTime);
+                    while (reloadTime <= 0) {
+                        
                         projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);
-                        reloadTime = PlayerProjectileManager.LAVASPRAY_RELOAD;
+                        reloadTime += PlayerProjectileManager.LAVASPRAY_RELOAD;
                     }
                 }
             }
