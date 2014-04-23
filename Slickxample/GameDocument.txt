@@ -1,0 +1,14 @@
+Genres: Scrolling Shooter 2.0, action.
+Players: SinglePlayer, with a fixed role.
+Objectives: Escape
+Procedures: I could've told you if the description of this topic was better.
+Rules: Currently, the rules are not described. Idea is to have them described in a playable tutorial.
+There are few rules. You cannot move out of the side of the screen. (Would be shown with graphic, if Ihad time to finish the game)
+The rest of the rules will be experienced and will feel intuitive. Like, you can't shoot faster than the game allows you to.
+Resources: Health, run out of it and it's game over. There is no way of regaining life.
+Objects: There are no objects in the game, only enemies and the player and some ground for the player to walk on. The lava might be considered environment though.
+Boundaries: The sides are locked. The bottom is indirectly locked, because going downwards will result in you burning to death. Going up is the only way to progress.
+Outcome: Highscore.
+Challenge: This game has dynamic difficulty. No matter how bad you are, you will be able to progress in the beginning, and no matter how skilled you are, you will get to a point where you die.
+The difficulty works by slowly increasing life, damage and score value when you progress upwards, with some breakpoints of even harsher difficulty.
+Play: The game is made with the Competitor player in mind.
