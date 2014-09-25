@@ -112,7 +112,6 @@ public class Player extends Entity {
                 }
             } else {
                 if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                    System.out.println(reloadTime);
                     while (reloadTime <= 0) {
                         
                         projectiles.SpawnProjectile(xPos, yPos, MathTool.getAngle(input, PlayerProjectileManager.LAVASPRAY_MIDDLEX), 1);

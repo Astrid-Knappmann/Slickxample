@@ -102,7 +102,6 @@ public class LevelRenderer {
             extraRows--;
             difficulty += 0.1f;
             enemyManager.spawnEnemies(currentLvl, difficulty);
-            System.out.println(difficulty);
         }
 
         if (scroll <= tileSize * -1) {
